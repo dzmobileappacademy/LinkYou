@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import Firebase
+import FirebaseAuth
+
 
 class LoginVC: UIViewController {
     
@@ -24,7 +28,13 @@ class LoginVC: UIViewController {
 
 
     @IBAction func facebookLoginButtonTapped(_ sender: UIButton) {
+        UserController.createAndLogin(self) { (success) in
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            }
+            
         
+    }
     }
     
 

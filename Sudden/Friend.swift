@@ -8,6 +8,24 @@
 
 import Foundation
 
-class Friend {
+class Friend: Equatable {
     
+    var id: String
+    var profileURL: String
+    var profilePicture: String
+    var gender: String
+    
+    init(id: String, profileURL: String, profilePicture: String, gender: String) {
+        self.gender = gender
+        self.profileURL = profileURL
+        self.profilePicture = profilePicture
+        self.id = id
+    }
+    
+}
+
+// equatable function to conform to equatable protocol and to be able to compare stuff together
+
+func ==(rhs: Friend, lhs: Friend) -> Bool {
+    return lhs.id == rhs.id
 }

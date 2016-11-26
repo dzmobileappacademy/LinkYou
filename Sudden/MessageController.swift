@@ -7,3 +7,9 @@
 //
 
 import Foundation
+class MessageController {
+    
+    // Fetch message with the provided identifier
+    
+    // create message
+}
