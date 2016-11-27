@@ -11,13 +11,13 @@ import Foundation
 class Friend: Equatable {
     
     var id: String
-    var profileURL: String
+//    var profileURL: String
     var profilePicture: String
     var gender: String
     
-    init(id: String, profileURL: String, profilePicture: String, gender: String) {
+    init(id: String, profilePicture: String) {
         self.gender = gender
-        self.profileURL = profileURL
+//        self.profileURL = profileURL
         self.profilePicture = profilePicture
         self.id = id
     }
