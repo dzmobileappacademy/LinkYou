@@ -16,6 +16,7 @@ import FirebaseAuth
 class UserController {
     
     static var currentUser = ""
+    static var facebookFriendsArray = [Friend]()
     
     
     // Fetch user from Firebase with the provided identifier
@@ -63,7 +64,17 @@ class UserController {
                                 var newUser = User(firstName: name!, profileImageURL: ("\(photoURL!)"))
                                 newUser.save()
                                 self.currentUser = uid
+                                
+                                // call facebook friends list function
+                                getFriendsList({ (friends) in
+                                    DispatchQueue.main.async {
+                                        self.facebookFriendsArray = friends
+
+                                    }
+                                })
                                 completion(true)
+
+ 
                                 
                                 
                             }
@@ -83,34 +94,40 @@ class UserController {
     
     static func getFriendsList(_ completion: @escaping (_ friends: [Friend]) -> Void) {
         let facebookRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id, first_name, last_name, middle_name, email, picture.type(large)"])
-        facebookRequest?.start(completionHandler: { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
-            if error != nil {
-                let errorMessage = error.localizedDescription
-                print("ERROR LOADING FRIENDS LIST: \(errorMessage)")
-            } else {
+        facebookRequest?.start(completionHandler: { (connection:FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+            if error == nil {
+               
                 
                 // no errors!! great.. now get some facebook friends
                 var friends = [Friend]()
-                var resultDictionary = result as NSDictionary
+                let resultDictionary = result as! NSDictionary
                 print("RESULT DICTIOINARY: \(resultDictionary)")
-                var data: NSArray = resultDictionary["data"] as? NSArray
+                var data: Array = resultDictionary["data"] as! NSArray as Array
                 for i in 0..<data.count {
-                    let valueDictionary: NSDictionary = data[i] as! NSDictionary
-                    let firstName = valueDictionary.object(forKey: "first_name") as String
-                    let id = valueDictionary.object(forKey: "id") as String
-                    guard let picture = valueDictionary.object(forKey: "picture") as? [String: AnyObject] else  {return}
+                    let valueDictionary = data[i]  as? NSDictionary
+                    let firstName = valueDictionary?.object(forKey: "first_name") as! String
+                    let id = valueDictionary?.object(forKey: "id") as! String
+                    guard let picture = valueDictionary?.object(forKey: "picture") as? [String: AnyObject] else  {return}
                     guard let data = picture["data"] as? [String: AnyObject] else {return}
                     guard let imageURL = data ["url"] as? String else {return print("failed loading the profile picture")}
                     
-                    let friend = Friend(id: id, profilePicture: imageURL)
+                    let friend = Friend(id: id, profilePicture: imageURL, firstName: firstName)
                     friends.append(friend)
-                    completion(friends)
-                    
-                    
+                    print("FACEBOOK FRIENDS LIST: \(friends)")
                 }
+
+                    completion(friends)
+                print("FACEBOOK FRIENDS LIST: \(friends)")
+
+
+                
+                
+            } else {
+                print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
             }
-        })
         
+
+        })
         
         
     }
