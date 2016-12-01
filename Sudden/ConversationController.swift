@@ -70,6 +70,8 @@ class ConversationController {
             })
             
         }
+        completion(true, conversationCreated)
+        
     }
     
     // save the conversationIDs and the matchIDs under the usersIDs
@@ -81,7 +83,7 @@ class ConversationController {
             addConversationIDToUser(userIdentifier, conversationIdentifier: conversationIdentifier)
             user.save()
         }
-    
+        
     }
     
     // set identifier's value to true to add under the user's ID
