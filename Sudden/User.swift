@@ -81,7 +81,7 @@ class User: FirebaseType {
         self.identifier = identifier
         
         if let blockedUsersIDS = json[KblockedUsers] as? [String: AnyObject] {
-            self.blockedUsersIDs = blockedUsersIDS.flatMap({$0.0})  // we are interested only in the IDs that's why we did not put the actual Model in flatmap, the $0 refers to the element of the [String (0): AnyObject (1)]
+            self.blockedUsersIDs = blockedUsersIDS.flatMap({$0.0})  // we are interested only in the IDs that's why we did not put the actual Model in flatmap, the $0 refers to the element of the [String (0): AnyObject (1)]  this is because swift inters that as a tuple (key, value) and it gives $0.0 to the key and $0.1 to the value
         } else {
             self.blockedUsersIDs = []
         }

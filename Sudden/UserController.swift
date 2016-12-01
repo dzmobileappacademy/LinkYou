@@ -16,6 +16,7 @@ import FirebaseAuth
 class UserController {
     
     static var currentUser = ""
+    static var sharedInstance = UserController()
     static var facebookFriendsArray = [Friend]()
     
     
@@ -69,12 +70,12 @@ class UserController {
                                 getFriendsList({ (friends) in
                                     DispatchQueue.main.async {
                                         self.facebookFriendsArray = friends
-
+                                        
                                     }
                                 })
                                 completion(true)
-
- 
+                                
+                                
                                 
                                 
                             }
@@ -96,7 +97,7 @@ class UserController {
         let facebookRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id, first_name, last_name, middle_name, email, picture.type(large)"])
         facebookRequest?.start(completionHandler: { (connection:FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
             if error == nil {
-               
+                
                 
                 // no errors!! great.. now get some facebook friends
                 var friends = [Friend]()
@@ -115,18 +116,18 @@ class UserController {
                     friends.append(friend)
                     print("FACEBOOK FRIENDS LIST: \(friends)")
                 }
-
-                    completion(friends)
+                
+                completion(friends)
                 print("FACEBOOK FRIENDS LIST: \(friends)")
-
-
+                
+                
                 
                 
             } else {
                 print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
             }
-        
-
+            
+            
         })
         
         

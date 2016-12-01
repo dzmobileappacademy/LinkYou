@@ -151,9 +151,9 @@
 				5416607D1DE9262F00564099 /* Sudden.entitlements */,
 				54C7AD841DDAB9DF00853E94 /* Utils */,
 				54C7AD761DDAB4A800853E94 /* Model */,
+				54C7AD771DDAB4C300853E94 /* Controller */,
 				54C7AD791DDAB50900853E94 /* Views */,
 				54C7AD781DDAB4FC00853E94 /* View Controller */,
-				54C7AD771DDAB4C300853E94 /* Controller */,
 				54C7AD4F1DDAB0F300853E94 /* Storyboard */,
 			);
 			path = Sudden;
