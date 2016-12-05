@@ -68,9 +68,9 @@ class ConversationController {
                     userTwo.save()
                 }
             })
+            completion(true, conversationCreated)
             
         }
-        completion(true, conversationCreated)
         
     }
     
@@ -97,14 +97,61 @@ class ConversationController {
     }
     
     // remove conversation from user's conversations
-    
-    
-    
+    static func removeConversation(_ conversation: Conversation, completion: @escaping(_ success: Bool) -> Void) {
+        if let converationIdentifier = conversation.identifier {
+            conversation.delete()
+            UserController.fetchUserForIdentifier(converationIdentifier, completion: { (user) in
+                completion(true)
+            })
+        }
+        
+    }
     // remove match from user's matches
     
-    // fetch blocked users
+    static func removeMatch(_ user: User,  _ matchedUser: User, completion: @escaping(_ success: Bool, _ user: User?) -> Void) {
+        
+        if let userID = user.identifier {
+            
+            FirebaseController.ref.child("users/\(userID)/matches/").updateChildValues([matchedUser.identifier! : false])
+            UserController.fetchUserForIdentifier(userID, completion: { (user) in
+                completion(true, user)
+                print("MATCH WAS REMOVED")
+            })
+        }
+        
+    }
     
-    // add blocked user to user blocked list
+    // get title for the conversation on top , the user who the currentUser is talking to
+    static func oppositeUser(conversation: Conversation, userID: String, completion: @escaping(_ user: User?) -> Void) {
+        if userID == conversation.userOneID {
+            UserController.fetchUserForIdentifier(conversation.userTwoID, completion: { (user) in
+                if let user = user {
+                    completion(user)
+                }
+            })
+        } else {
+            UserController.fetchUserForIdentifier(conversation.userOneID, completion: { (user) in
+                if let user = user {
+                    completion(user)
+                }
+            })
+        }
+    }
     
-    
+    // add user to blockedusers list
+    static func addUserToBlockedUsersList(_ conversation: Conversation) {
+        let currentUserID = UserController.currentUserID
+        oppositeUser(conversation: conversation, userID: currentUserID, completion: { (user) in
+            
+            if let userID = user?.identifier {
+                FirebaseController.ref.child("users/\(currentUserID)/blockedUsers").updateChildValues([userID: true])
+            }
+        })
+        removeConversation(conversation, completion: { (true) in
+            print("CONVERSATION WAS DELETED")
+            
+        })
+        
+        
+    }
 }

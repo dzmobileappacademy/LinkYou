@@ -29,7 +29,6 @@
 		54C7AD5F1DDAB1A800853E94 /* ConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD5E1DDAB1A800853E94 /* ConversationController.swift */; };
 		54C7AD611DDAB1B200853E94 /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD601DDAB1B200853E94 /* FriendController.swift */; };
 		54C7AD631DDAB1BB00853E94 /* ReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD621DDAB1BB00853E94 /* ReportController.swift */; };
-		54C7AD651DDAB1D800853E94 /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD641DDAB1D800853E94 /* FacebookController.swift */; };
 		54C7AD671DDAB23E00853E94 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD661DDAB23E00853E94 /* LoginVC.swift */; };
 		54C7AD691DDAB28B00853E94 /* FriendOneCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD681DDAB28B00853E94 /* FriendOneCollectionVC.swift */; };
 		54C7AD6B1DDAB2A500853E94 /* FriendTwoCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD6A1DDAB2A500853E94 /* FriendTwoCollectionVC.swift */; };
@@ -75,7 +74,6 @@
 		54C7AD5E1DDAB1A800853E94 /* ConversationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationController.swift; sourceTree = "<group>"; };
 		54C7AD601DDAB1B200853E94 /* FriendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
 		54C7AD621DDAB1BB00853E94 /* ReportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportController.swift; sourceTree = "<group>"; };
-		54C7AD641DDAB1D800853E94 /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		54C7AD661DDAB23E00853E94 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		54C7AD681DDAB28B00853E94 /* FriendOneCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendOneCollectionVC.swift; sourceTree = "<group>"; };
 		54C7AD6A1DDAB2A500853E94 /* FriendTwoCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTwoCollectionVC.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				54C7AD5E1DDAB1A800853E94 /* ConversationController.swift */,
 				54C7AD601DDAB1B200853E94 /* FriendController.swift */,
 				54C7AD621DDAB1BB00853E94 /* ReportController.swift */,
-				54C7AD641DDAB1D800853E94 /* FacebookController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -403,7 +400,6 @@
 				54C7AD691DDAB28B00853E94 /* FriendOneCollectionVC.swift in Sources */,
 				54C7AD711DDAB34000853E94 /* ConversationsTableViewCell.swift in Sources */,
 				54C7AD671DDAB23E00853E94 /* LoginVC.swift in Sources */,
-				54C7AD651DDAB1D800853E94 /* FacebookController.swift in Sources */,
 				54C7AD8C1DDD619E00853E94 /* TypingMessageContainer.swift in Sources */,
 				54C7AD321DD9600200853E94 /* AppDelegate.swift in Sources */,
 				54C7AD811DDAB95700853E94 /* ProfileImage.swift in Sources */,

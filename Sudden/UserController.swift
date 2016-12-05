@@ -15,7 +15,7 @@ import FirebaseAuth
 
 class UserController {
     
-    static var currentUser = ""
+    static var currentUserID = ""
     static var sharedInstance = UserController()
     static var facebookFriendsArray = [Friend]()
     
