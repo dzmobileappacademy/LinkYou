@@ -100,6 +100,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8h2-Pa-f2A" id="ImP-ys-iol"/>
+                                    <outlet property="delegate" destination="8h2-Pa-f2A" id="ZCF-cN-8cT"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GV0-VR-bPM" customClass="TypingMessageContainer" customModule="Sudden" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="578" width="375" height="59"/>

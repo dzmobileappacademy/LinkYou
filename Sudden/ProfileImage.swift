@@ -8,14 +8,24 @@
 
 import UIKit
 
-class ProfileImage: UIView {
+@IBDesignable
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class ProfileImage: UIImageView {
+    func imageStyle() {
+        self.layer.cornerRadius = self.frame.height/2
+        self.layer.masksToBounds = true
     }
-    */
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        imageStyle()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        imageStyle()
+    }
+
+    
 
 }

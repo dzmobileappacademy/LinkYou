@@ -64,7 +64,7 @@ class UserController {
                                 
                                 var newUser = User(firstName: name!, profileImageURL: ("\(photoURL!)"))
                                 newUser.save()
-                                self.currentUser = uid
+                                self.currentUserID = uid
                                 
                                 // call facebook friends list function
                                 getFriendsList({ (friends) in
@@ -112,7 +112,7 @@ class UserController {
                     guard let data = picture["data"] as? [String: AnyObject] else {return}
                     guard let imageURL = data ["url"] as? String else {return print("failed loading the profile picture")}
                     
-                    let friend = Friend(id: id, profilePicture: imageURL, firstName: firstName)
+                    let friend = Friend(id: id, firstName: firstName, profilePictureURL: imageURL)
                     friends.append(friend)
                     print("FACEBOOK FRIENDS LIST: \(friends)")
                 }

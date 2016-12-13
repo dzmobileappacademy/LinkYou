@@ -8,47 +8,159 @@
 
 import UIKit
 
-class SuddenMainVC: UIViewController {
+class SuddenMainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    // MARK: - Properties
+    static var isUserSelected: Bool =  false // switch property to see if user is selected or not . default to false because users are not selected yet at first.
+    var selectedUsersList = [UIImage]()  // array of selected items in the collectionView. if selected => add to the array, if not => remove from the array
+    var checkedIndexPaths = Set<IndexPath>()
+    var selectedUser: Friend?
+    var blurEffectView: UIVisualEffectView!
     
     //MARK: - IBOutlets
+    @IBOutlet weak var matchButtonOutlet: UIButton!
     
-    @IBOutlet weak var admobBannerView: UIView!
-    
-    @IBOutlet weak var friendOneCV: UICollectionView!
-    
-    @IBOutlet weak var friendTwoCV: UICollectionView!
+    @IBOutlet weak var userCV: UICollectionView!
     
     @IBOutlet weak var conversationsButtonOutlet: UIBarButtonItem!
     
-    @IBOutlet weak var connectButtonOutlet: UIButton!
-    
-    
-    
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        userCV.reloadData()
+        
     }
     
+    // tap connect button, bring connectionAlert.XIB up front view
     @IBAction func connectButtonTapped(_ sender: UIButton) {
+        let connectAlert = UINib(nibName: "ConnectAlert", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
+        let blurEffect = UIBlurEffect(style: .light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.view.addSubview(blurEffectView)
+        connectAlert?.frame = CGRect(
+        
     }
     
+    // tap conversationbutton, go to "conversationsList,matches, waiting list" table view
     @IBAction func conversationsButtonTapped(_ sender: UIBarButtonItem) {
     }
-
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Collection View DataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return UserController.facebookFriendsArray.count
     }
-    */
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendCollectionViewIdentifier", for: indexPath) as! FriendCollectionViewCell
+        let friend = UserController.facebookFriendsArray[indexPath.item]
+        if let friendImage = friend.profilePicture {
+            cell.updateWith(friendImage, username: friend.firstName)
+            cell.isChecked = self.checkedIndexPaths.contains(indexPath)
+        }
+        return cell
+    }
+    
+    
+    
+    
+    // MARK: - Collection View Delegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
+        if self.checkedIndexPaths.contains(indexPath) == false {
+            self.checkedIndexPaths.insert(indexPath)
+            cell.isChecked = false
+            SuddenMainVC.isUserSelected = true
+            
+            
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
+        if self.checkedIndexPaths.contains(indexPath) {
+            self.checkedIndexPaths.remove(indexPath)
+            cell.isChecked = true
+            SuddenMainVC.isUserSelected = false
+        }
+        
+        
+    }
+    
+    
+    // MARK: - Core Functions
+    
+    // present link button
+    func presentLinkButton() {
+        if SuddenMainVC.isUserSelected == true {
+            matchButtonOutlet.isHidden = false
+        }
+        
+    }
+    
+    // hide link button
+    func hideLinkButton() {
+        if SuddenMainVC.isUserSelected == false {
+            matchButtonOutlet.isHidden = true
+        }
+        
+    }
+    
+    // login and load friend's List
+    
+    func logingAndGetFriendList() {
+        UserController.createAndLogin(self) { (success) in
+            if success {
+        UserController.getFriendsList({ (friends) in
+            UserController.facebookFriendsArray = friends
+            DispatchQueue.main.async {
+                print("SUCCESSFULLY GETTING FACEBOOK FRIENDS")
+                print(UserController.facebookFriendsArray)
+                self.userCV.reloadData()
 
+            }
+        })
+            } else {
+                self.performSegue(withIdentifier: "", sender: nil)
+            }
+        
+    }
+    }
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

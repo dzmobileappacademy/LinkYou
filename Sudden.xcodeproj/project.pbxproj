@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541610E21DF7BB19009B94C8 /* AsynchronousImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541610E11DF7BB19009B94C8 /* AsynchronousImageLoader.swift */; };
+		541610E61DFC8520009B94C8 /* 1481417189_Artboard_9svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 541610E51DFC8520009B94C8 /* 1481417189_Artboard_9svg.png */; };
 		542751821DE52EE70078B988 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542751811DE52EE70078B988 /* Bolts.framework */; };
 		542751841DE52EF50078B988 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542751831DE52EF50078B988 /* FBSDKCoreKit.framework */; };
 		542751861DE52EFB0078B988 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542751851DE52EFB0078B988 /* FBSDKShareKit.framework */; };
@@ -30,8 +32,6 @@
 		54C7AD611DDAB1B200853E94 /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD601DDAB1B200853E94 /* FriendController.swift */; };
 		54C7AD631DDAB1BB00853E94 /* ReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD621DDAB1BB00853E94 /* ReportController.swift */; };
 		54C7AD671DDAB23E00853E94 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD661DDAB23E00853E94 /* LoginVC.swift */; };
-		54C7AD691DDAB28B00853E94 /* FriendOneCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD681DDAB28B00853E94 /* FriendOneCollectionVC.swift */; };
-		54C7AD6B1DDAB2A500853E94 /* FriendTwoCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD6A1DDAB2A500853E94 /* FriendTwoCollectionVC.swift */; };
 		54C7AD6F1DDAB32700853E94 /* ChatThreadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD6E1DDAB32700853E94 /* ChatThreadTableViewCell.swift */; };
 		54C7AD711DDAB34000853E94 /* ConversationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD701DDAB34000853E94 /* ConversationsTableViewCell.swift */; };
 		54C7AD731DDAB35E00853E94 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C7AD721DDAB35E00853E94 /* FriendCollectionViewCell.swift */; };
@@ -49,6 +49,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		541610E11DF7BB19009B94C8 /* AsynchronousImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousImageLoader.swift; sourceTree = "<group>"; };
+		541610E51DFC8520009B94C8 /* 1481417189_Artboard_9svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1481417189_Artboard_9svg.png; sourceTree = "<group>"; };
 		5416607D1DE9262F00564099 /* Sudden.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sudden.entitlements; sourceTree = "<group>"; };
 		542751811DE52EE70078B988 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		542751831DE52EF50078B988 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -75,8 +77,6 @@
 		54C7AD601DDAB1B200853E94 /* FriendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
 		54C7AD621DDAB1BB00853E94 /* ReportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportController.swift; sourceTree = "<group>"; };
 		54C7AD661DDAB23E00853E94 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		54C7AD681DDAB28B00853E94 /* FriendOneCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendOneCollectionVC.swift; sourceTree = "<group>"; };
-		54C7AD6A1DDAB2A500853E94 /* FriendTwoCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTwoCollectionVC.swift; sourceTree = "<group>"; };
 		54C7AD6E1DDAB32700853E94 /* ChatThreadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatThreadTableViewCell.swift; sourceTree = "<group>"; };
 		54C7AD701DDAB34000853E94 /* ConversationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsTableViewCell.swift; sourceTree = "<group>"; };
 		54C7AD721DDAB35E00853E94 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -150,8 +150,8 @@
 				54C7AD841DDAB9DF00853E94 /* Utils */,
 				54C7AD761DDAB4A800853E94 /* Model */,
 				54C7AD771DDAB4C300853E94 /* Controller */,
-				54C7AD791DDAB50900853E94 /* Views */,
 				54C7AD781DDAB4FC00853E94 /* View Controller */,
+				54C7AD791DDAB50900853E94 /* Views */,
 				54C7AD4F1DDAB0F300853E94 /* Storyboard */,
 			);
 			path = Sudden;
@@ -191,6 +191,7 @@
 				54C7AD5E1DDAB1A800853E94 /* ConversationController.swift */,
 				54C7AD601DDAB1B200853E94 /* FriendController.swift */,
 				54C7AD621DDAB1BB00853E94 /* ReportController.swift */,
+				541610E11DF7BB19009B94C8 /* AsynchronousImageLoader.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -202,8 +203,6 @@
 				54C7AD7A1DDAB53800853E94 /* PrivacyPolicyVC.swift */,
 				54C7AD661DDAB23E00853E94 /* LoginVC.swift */,
 				54C7AD891DDD60D600853E94 /* ChatThreadVC.swift */,
-				54C7AD681DDAB28B00853E94 /* FriendOneCollectionVC.swift */,
-				54C7AD6A1DDAB2A500853E94 /* FriendTwoCollectionVC.swift */,
 				54C7AD741DDAB44800853E94 /* SuddenMainVC.swift */,
 			);
 			name = "View Controller";
@@ -229,6 +228,7 @@
 				54C7AD431DD9647C00853E94 /* GoogleService-Info.plist */,
 				54C7AD3D1DD9600200853E94 /* Info.plist */,
 				54C7AD381DD9600200853E94 /* Assets.xcassets */,
+				541610E51DFC8520009B94C8 /* 1481417189_Artboard_9svg.png */,
 			);
 			name = Utils;
 			path = ..;
@@ -318,6 +318,7 @@
 				54C7AD3C1DD9600200853E94 /* LaunchScreen.storyboard in Resources */,
 				54C7AD391DD9600200853E94 /* Assets.xcassets in Resources */,
 				54C7AD441DD9647C00853E94 /* GoogleService-Info.plist in Resources */,
+				541610E61DFC8520009B94C8 /* 1481417189_Artboard_9svg.png in Resources */,
 				54C7AD4A1DD96B0900853E94 /* Login.storyboard in Resources */,
 				54C7AD371DD9600200853E94 /* Main.storyboard in Resources */,
 				54C7AD7D1DDAB78200853E94 /* Connect.xib in Resources */,
@@ -380,10 +381,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				541610E21DF7BB19009B94C8 /* AsynchronousImageLoader.swift in Sources */,
 				54C7AD7B1DDAB53800853E94 /* PrivacyPolicyVC.swift in Sources */,
 				54C7AD551DDAB15500853E94 /* Conversation.swift in Sources */,
 				54C7AD7F1DDAB7CE00853E94 /* ConnectAlert.swift in Sources */,
-				54C7AD6B1DDAB2A500853E94 /* FriendTwoCollectionVC.swift in Sources */,
 				54C7AD5F1DDAB1A800853E94 /* ConversationController.swift in Sources */,
 				54C7AD531DDAB14D00853E94 /* Message.swift in Sources */,
 				54C7AD631DDAB1BB00853E94 /* ReportController.swift in Sources */,
@@ -397,7 +398,6 @@
 				54C7AD881DDD521C00853E94 /* ConversationsListTVC.swift in Sources */,
 				54C7AD8A1DDD60D600853E94 /* ChatThreadVC.swift in Sources */,
 				54C7AD611DDAB1B200853E94 /* FriendController.swift in Sources */,
-				54C7AD691DDAB28B00853E94 /* FriendOneCollectionVC.swift in Sources */,
 				54C7AD711DDAB34000853E94 /* ConversationsTableViewCell.swift in Sources */,
 				54C7AD671DDAB23E00853E94 /* LoginVC.swift in Sources */,
 				54C7AD8C1DDD619E00853E94 /* TypingMessageContainer.swift in Sources */,

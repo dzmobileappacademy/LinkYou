@@ -7,19 +7,16 @@
 //
 
 import Foundation
-
+import UIKit
 class Friend: Equatable {
     
     var id: String
     var firstName: String
-//    var profileURL: String
-    var profilePicture: String
-//    var gender: String
+    var profilePictureURL: String
+    var profilePicture: UIImage?
     
-    init(id: String, profilePicture: String, firstName: String) {
-//        self.gender = gender
-//        self.profileURL = profileURL
-        self.profilePicture = profilePicture
+    init(id: String, firstName: String, profilePictureURL: String) {
+        self.profilePictureURL = profilePictureURL
         self.id = id
         self.firstName = firstName
     }
