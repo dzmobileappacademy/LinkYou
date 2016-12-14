@@ -18,6 +18,8 @@ class UserController {
     static var currentUserID = ""
     static var sharedInstance = UserController()
     static var facebookFriendsArray = [Friend]()
+    static var userOne: Friend?
+    static var userTwo: Friend?
     
     
     // Fetch user from Firebase with the provided identifier

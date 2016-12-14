@@ -50,8 +50,8 @@ class ConversationController {
     }
     
     // create conversation between current user and selected user
-    static func createConversation(_ userOneID: String, conversationID: Conversation ,  userTwoID: String, conversationCreatorID: String, completion: @escaping(_ success: Bool, _ conversation: Conversation?) -> Void) {
-        if conversationID.identifier != nil {
+    static func createConversation(_ userOneID: String,  userTwoID: String, conversationCreatorID: String, completion: @escaping(_ success: Bool, _ conversation: Conversation?) -> Void) {
+        
             var conversationCreated = Conversation(userOneID: userOneID, userTwoID: userTwoID, creatorID: conversationCreatorID)
             conversationCreated.save()
             UserController.fetchUserForIdentifier(userOneID, completion: { (user) in
@@ -70,7 +70,7 @@ class ConversationController {
             })
             completion(true, conversationCreated)
             
-        }
+        
         
     }
     

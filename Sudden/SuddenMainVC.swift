@@ -27,6 +27,7 @@ class SuddenMainVC: UIViewController, UICollectionViewDelegate, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         userCV.reloadData()
+        matchButtonOutlet.isHidden = true
         
     }
     
@@ -38,7 +39,9 @@ class SuddenMainVC: UIViewController, UICollectionViewDelegate, UICollectionView
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.view.addSubview(blurEffectView)
-        connectAlert?.frame = CGRect(
+        connectAlert?.frame = CGRect(x: (UIScreen.main.bounds.width / 2) - ((connectAlert?.frame.width)! / 2), y: (self.view.frame.height / 2) - ((connectAlert?.frame.height)! / 2), width: (connectAlert?.frame.width)!, height: (connectAlert?.frame.height)!)
+        connectAlert?.layer.cornerRadius = 12
+        self.view.addSubview(connectAlert!)
         
     }
     
@@ -94,6 +97,7 @@ class SuddenMainVC: UIViewController, UICollectionViewDelegate, UICollectionView
     func presentLinkButton() {
         if SuddenMainVC.isUserSelected == true {
             matchButtonOutlet.isHidden = false
+            view.bringSubview(toFront: matchButtonOutlet)
         }
         
     }
