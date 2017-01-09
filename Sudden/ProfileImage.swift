@@ -12,8 +12,10 @@ import UIKit
 
 class ProfileImage: UIImageView {
     func imageStyle() {
-        self.layer.cornerRadius = self.frame.height/2
-        self.layer.masksToBounds = true
+//        self.layer.cornerRadius = self.frame.size.height / 2
+//        self.layer.masksToBounds = false
+//        self.clipsToBounds = true
+        
     }
     
     override func prepareForInterfaceBuilder() {

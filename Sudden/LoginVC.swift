@@ -30,6 +30,8 @@ class LoginVC: UIViewController {
     @IBAction func facebookLoginButtonTapped(_ sender: UIButton) {
         UserController.createAndLogin(self) { (success) in
             if success {
+                self.performSegue(withIdentifier: "toMainStoryBoard", sender: nil)
+            } else {
                 self.dismiss(animated: true, completion: nil)
             }
             

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540F8CD41E1A01FC0062353A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F8CD31E1A01FC0062353A /* Extensions.swift */; };
+		540F8CD61E1B5A880062353A /* ProfileSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540F8CD51E1B5A880062353A /* ProfileSettings.storyboard */; };
+		540F8CD81E1B5ACB0062353A /* ProfileSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F8CD71E1B5ACB0062353A /* ProfileSettingsTVC.swift */; };
 		541610E21DF7BB19009B94C8 /* AsynchronousImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541610E11DF7BB19009B94C8 /* AsynchronousImageLoader.swift */; };
 		541610E61DFC8520009B94C8 /* 1481417189_Artboard_9svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 541610E51DFC8520009B94C8 /* 1481417189_Artboard_9svg.png */; };
 		542751821DE52EE70078B988 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542751811DE52EE70078B988 /* Bolts.framework */; };
@@ -49,6 +52,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		540F8CD31E1A01FC0062353A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		540F8CD51E1B5A880062353A /* ProfileSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProfileSettings.storyboard; sourceTree = "<group>"; };
+		540F8CD71E1B5ACB0062353A /* ProfileSettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsTVC.swift; sourceTree = "<group>"; };
 		541610E11DF7BB19009B94C8 /* AsynchronousImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousImageLoader.swift; sourceTree = "<group>"; };
 		541610E51DFC8520009B94C8 /* 1481417189_Artboard_9svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1481417189_Artboard_9svg.png; sourceTree = "<group>"; };
 		5416607D1DE9262F00564099 /* Sudden.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sudden.entitlements; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 				54C7AD4B1DD96B3400853E94 /* PrivacyPolicy.storyboard */,
 				54C7AD4D1DD96B5300853E94 /* Chat.storyboard */,
 				54C7AD351DD9600200853E94 /* Main.storyboard */,
+				540F8CD51E1B5A880062353A /* ProfileSettings.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -199,6 +206,7 @@
 		54C7AD781DDAB4FC00853E94 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				540F8CD71E1B5ACB0062353A /* ProfileSettingsTVC.swift */,
 				54C7AD871DDD521C00853E94 /* ConversationsListTVC.swift */,
 				54C7AD7A1DDAB53800853E94 /* PrivacyPolicyVC.swift */,
 				54C7AD661DDAB23E00853E94 /* LoginVC.swift */,
@@ -229,6 +237,7 @@
 				54C7AD3D1DD9600200853E94 /* Info.plist */,
 				54C7AD381DD9600200853E94 /* Assets.xcassets */,
 				541610E51DFC8520009B94C8 /* 1481417189_Artboard_9svg.png */,
+				540F8CD31E1A01FC0062353A /* Extensions.swift */,
 			);
 			name = Utils;
 			path = ..;
@@ -273,7 +282,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Youcef;
 				TargetAttributes = {
 					54C7AD2D1DD9600200853E94 = {
@@ -321,6 +330,7 @@
 				541610E61DFC8520009B94C8 /* 1481417189_Artboard_9svg.png in Resources */,
 				54C7AD4A1DD96B0900853E94 /* Login.storyboard in Resources */,
 				54C7AD371DD9600200853E94 /* Main.storyboard in Resources */,
+				540F8CD61E1B5A880062353A /* ProfileSettings.storyboard in Resources */,
 				54C7AD7D1DDAB78200853E94 /* Connect.xib in Resources */,
 				54C7AD4C1DD96B3400853E94 /* PrivacyPolicy.storyboard in Resources */,
 			);
@@ -382,6 +392,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				541610E21DF7BB19009B94C8 /* AsynchronousImageLoader.swift in Sources */,
+				540F8CD41E1A01FC0062353A /* Extensions.swift in Sources */,
+				540F8CD81E1B5ACB0062353A /* ProfileSettingsTVC.swift in Sources */,
 				54C7AD7B1DDAB53800853E94 /* PrivacyPolicyVC.swift in Sources */,
 				54C7AD551DDAB15500853E94 /* Conversation.swift in Sources */,
 				54C7AD7F1DDAB7CE00853E94 /* ConnectAlert.swift in Sources */,
@@ -448,6 +460,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -497,6 +510,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

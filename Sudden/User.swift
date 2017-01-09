@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 class User: FirebaseType {
     
     let KFirstName = "firstName"
@@ -21,7 +21,8 @@ class User: FirebaseType {
     let KconversationIDs = "conversationIDs"
     
     let firstName: String
-    var profileImageURL: String
+    var profileImage: UIImage?
+    var profileImageURL: String?
 //    let gender: String
     var conversations = [Conversation]()
     var conversationsIDs: [String] = []

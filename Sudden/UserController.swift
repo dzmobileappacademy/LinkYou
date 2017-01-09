@@ -16,10 +16,9 @@ import FirebaseAuth
 class UserController {
     
     static var currentUserID = ""
-    static var sharedInstance = UserController()
-    static var facebookFriendsArray = [Friend]()
-    static var userOne: Friend?
-    static var userTwo: Friend?
+    static var usersArray = [User]()
+    static var userOne: User?
+    static var userTwo: User?
     
     
     // Fetch user from Firebase with the provided identifier
@@ -35,6 +34,22 @@ class UserController {
         }
     }
     
+    // Fetch All Users images From Firebase
+    
+    static func fetchAllUsers(_ completion: @escaping(_ users: [User]?) -> Void) {
+        FirebaseController.dataAtEndPoint("users") { (data) in
+            if let json = data as? [String: AnyObject] {
+                let users = json.flatMap({User(json: $0.1 as! [String: AnyObject], identifier: $0.0)})
+                completion(users)
+            } else {
+                completion([])
+                print("empty array ya si youcef")
+            }
+        }
+    
+    }
+    
+    
     
     // Create User and Login
     
@@ -46,6 +61,7 @@ class UserController {
                 completion(false)
             } else if (result?.isCancelled)!{
                 print("login is CANCELLED")
+                
                 completion(false)
             } else {
                 let accessToken = FBSDKAccessToken.current().tokenString
@@ -62,19 +78,13 @@ class UserController {
                                 let uid = profile.uid // provider-specific UID
                                 let name = profile.displayName
                                 let email = profile.email
-                                let photoURL = profile.photoURL
+                                let photoUrl = profile.photoURL
+
                                 
-                                var newUser = User(firstName: name!, profileImageURL: ("\(photoURL!)"))
+                                var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"))
                                 newUser.save()
                                 self.currentUserID = uid
                                 
-                                // call facebook friends list function
-                                getFriendsList({ (friends) in
-                                    DispatchQueue.main.async {
-                                        self.facebookFriendsArray = friends
-                                        
-                                    }
-                                })
                                 completion(true)
                                 
                                 
@@ -95,45 +105,46 @@ class UserController {
     
     // Get Facebook Friend List
     
-    static func getFriendsList(_ completion: @escaping (_ friends: [Friend]) -> Void) {
-        let facebookRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id, first_name, last_name, middle_name, email, picture.type(large)"])
-        facebookRequest?.start(completionHandler: { (connection:FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
-            if error == nil {
-                
-                
-                // no errors!! great.. now get some facebook friends
-                var friends = [Friend]()
-                let resultDictionary = result as! NSDictionary
-                print("RESULT DICTIOINARY: \(resultDictionary)")
-                var data: Array = resultDictionary["data"] as! NSArray as Array
-                for i in 0..<data.count {
-                    let valueDictionary = data[i]  as? NSDictionary
-                    let firstName = valueDictionary?.object(forKey: "first_name") as! String
-                    let id = valueDictionary?.object(forKey: "id") as! String
-                    guard let picture = valueDictionary?.object(forKey: "picture") as? [String: AnyObject] else  {return}
-                    guard let data = picture["data"] as? [String: AnyObject] else {return}
-                    guard let imageURL = data ["url"] as? String else {return print("failed loading the profile picture")}
-                    
-                    let friend = Friend(id: id, firstName: firstName, profilePictureURL: imageURL)
-                    friends.append(friend)
-                    print("FACEBOOK FRIENDS LIST: \(friends)")
-                }
-                
-                completion(friends)
-                print("FACEBOOK FRIENDS LIST: \(friends)")
-                
-                
-                
-                
-            } else {
-                print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
-            }
-            
-            
-        })
-        
-        
-    }
+//    static func getFriendsList(_ completion: @escaping (_ users: [User]) -> Void) {
+//        let facebookRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id, first_name, last_name, middle_name, email, images, picture"])
+//        facebookRequest?.start(completionHandler: { (connection:FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+//            if error == nil {
+//                
+//                
+//                // no errors!! great.. now get some facebook friends
+//                var users = [User]()
+//                let resultDictionary = result as! NSDictionary
+//                print("RESULT DICTIOINARY: \(resultDictionary)")
+//                var data: Array = resultDictionary["data"] as! NSArray as Array
+//                for i in 0..<data.count {
+//                    let valueDictionary = data[i]  as? NSDictionary
+//                    let firstName = valueDictionary?.object(forKey: "first_name") as! String
+//                    let id = valueDictionary?.object(forKey: "id") as! String
+//                    guard let picture = valueDictionary?.object(forKey: "picture") as? [String: AnyObject] else  {return}
+//                    guard let data = picture["data"] as? [String: AnyObject] else {return}
+//                    guard let imageURL = data ["url"] as? String else {return print("failed loading the profile picture")}
+//                    
+//                    let user = User(firstName: firstName, profileImageURL: imageURL)
+//                    users.append(user)
+//                }
+//                
+//                
+//                
+//                completion(users)
+//                print("FACEBOOK FRIENDS LIST: \(users)")
+//                
+//                
+//                
+//                
+//            } else {
+//                print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
+//            }
+//            
+//            
+//        })
+//        
+//        
+//    }
     
     
     // Logout

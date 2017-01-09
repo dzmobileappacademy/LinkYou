@@ -9,23 +9,41 @@
 import Foundation
 class FriendController {
     
-    static var friendList = [Friend]()
-    static func filterFriends(_ friend: Friend, completion: @escaping(_ success: Bool) -> Void) {
-        // create place holder arrays to isoalate already matched users and  display only the users who are not a match yet
-        var filteredArray = [Friend]()
-        var arrayOfIDs = [String]()
-        UserController.fetchUserForIdentifier(friend.id) { (user) in
-            if let user = user {
-                arrayOfIDs = user.matchesIDs
-                filteredArray += friendList.filter({!arrayOfIDs.contains($0.id)})
-                completion(true)
-            } else {
-                print("ERROR SETTING THE FILTRED LIST")
-                completion(false)
+    static var allUsersList = [User]()
+    static var filtredListOfUsers = [User]()
+    
+    // get the complete array of facebook friends to use to display friends
+    static func getUsers(_ users: [User]) -> [User] {
+        UserController.fetchUserForIdentifier(UserController.currentUserID) { (user) in
+            if user != nil {
+                allUsersList = users
+                
             }
             
         }
+        return allUsersList
+    }
+    
+    
+    
+    // logic for the filtered array that does not contain already matched Identifers (matchIDS)
+    static func filtredUsers(_ user: User, completion: @escaping(_ success: Bool) -> Void) {
+        // create place holder arrays to isoalate already matched users and  display only the users who are not a match yet
+        var filteredArray = [User]()
+        var AlreadyMatchedIDs = [String]()
+        if let identifier = user.identifier {
+            UserController.fetchUserForIdentifier(identifier) { (user) in
+                if let user = user {
+                    AlreadyMatchedIDs = user.matchesIDs
+                    filteredArray += allUsersList.filter({!AlreadyMatchedIDs.contains($0.identifier!)})
+                    filtredListOfUsers = filteredArray
+                    completion(true)
+                } else {
+                    print("ERROR SETTING THE FILTRED LIST")
+                    completion(false)
+                }
+            }
         
-        
+        }
     }
 }

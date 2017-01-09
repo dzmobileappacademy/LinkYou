@@ -21,6 +21,9 @@ class PrivacyPolicyVC: UIViewController {
 
  
     
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

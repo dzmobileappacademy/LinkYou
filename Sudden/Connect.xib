@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ConnectAlert" customModule="Sudden" customModuleProvider="target">
+        <view contentMode="scaleAspectFit" id="iN0-l3-epB" customClass="ConnectAlert" customModule="Sudden" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link'Em" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJj-11-Ruo">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Compatible?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJj-11-Ruo">
                     <rect key="frame" x="18" y="128" width="341" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="T7X-U3-9M8"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                    <color key="textColor" red="0.98443448604060912" green="0.098613782362712218" blue="0.2655899880741463" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.14079212079847458" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="send an introduction message to these two friends for a successful connection. " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
                     <rect key="frame" x="18" y="181" width="343" height="99"/>
-                    <color key="backgroundColor" red="1" green="0.9735892468603452" blue="0.98397365571462858" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.97868064042480474" green="1" blue="0.98455358938904602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="99" id="RY2-K6-17T"/>
                     </constraints>
+                    <string key="text">Do you think these two looks compatible? Give a try then and send them an introduction message describing why you think they are compatible...</string>
                     <color key="textColor" red="0.0025380710659897998" green="0.00025424626145440659" blue="0.00068474466681753352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="light"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYs-DD-Jyq">
                     <rect key="frame" x="129" y="328" width="121" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Cancel">
-                        <color key="titleColor" red="0.0012026150672404463" green="0.0012095494923858308" blue="0.0011798162958675223" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.89831852791878175" green="0.12181673355229784" blue="0.28068607987276084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="cancelButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Mh9-7P-Qfb"/>
@@ -62,14 +63,14 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Connect">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.0" green="0.017656813828499374" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="connectButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ok3-1X-GpL"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.99975561280048231" blue="0.96252878901351668" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="LYs-DD-Jyq" secondAttribute="bottom" constant="11" id="7Vo-Di-6rH"/>
                 <constraint firstItem="Ol8-l4-hTZ" firstAttribute="top" secondItem="JJj-11-Ruo" secondAttribute="bottom" constant="8" id="BGW-PR-o7M"/>

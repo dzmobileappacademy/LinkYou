@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import Foundation
+
+// create a delegate protocol for notification in other classses
+protocol LinkAlertDelegate: class {
+    func removeBlurEffect(_ sender: ConnectAlert)
+}
 
 
 class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
@@ -18,12 +24,15 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var connectButtonOutlet: UIButton!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     
-    // MARK: - Delegate
-    weak var connectionDelegate: LinkAlertDelegate?  // reason of weak because delegate maintain a weak reference and it's optional, it could go to nil and the program will still work , sometimes it's just a notification tool.
+    // MARK: - Delegate property
+    
+    weak var connectionDelegate: LinkAlertDelegate?  // reason of weak because delegate maintain a weak reference and it's optional, it could go to nil and the program will still work , sometimes it's just a notification tool !!!!!!!! remember!!!!!!!!IMPORTANT!!!!!!
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         self.removeFromSuperview()
+        
         print("CANCEL BUTTON CLICKED AND BLUR REMOVED SUCCESFULLY!!!!")
+        connectionDelegate?.removeBlurEffect(self)
         
     }
     
@@ -31,7 +40,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         if let userOne = UserController.userOne,
             let userTwo = UserController.userTwo {
             let creatorID = UserController.currentUserID
-            ConversationController.createConversation(userOne.id, userTwoID: userTwo.id, conversationCreatorID: creatorID, completion: { (success, conversation) in
+            ConversationController.createConversation(userOne.identifier!, userTwoID: userTwo.identifier!, conversationCreatorID: creatorID, completion: { (success, conversation) in
                 if self.introductionMessageTextView.text == "introduction message" || self.introductionMessageTextView.text == "" {
                     if let conversationID = conversation?.identifier {
                         var creatorName = ""
@@ -42,6 +51,10 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
                                 MessageController.createMessage(conversationID, userID: creatorID, text: text, completion: { (message) in
                                     self.removeFromSuperview()
                                     print("message created successfully from the connection Alert CONNECT BUTTON!!!")
+                                    // post notification to the observer to get it 
+                                    let notificationName = Notification.Name("blurRemoved")
+                                    NotificationCenter.default.post(name: notificationName, object: nil)
+                                    self.connectionDelegate?.removeBlurEffect(self)
                                 })
                             }
                         })
@@ -51,7 +64,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
                         MessageController.createMessage(conversationID, userID: creatorID, text: text, completion: { (message) in
                             self.removeFromSuperview()
                             print("message created successfully from the connection Alert CONNECT BUTTON!!!")
-                            
+                            self.connectionDelegate?.removeBlurEffect(self)
                         })
                     }
                 }
@@ -72,7 +85,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         
         
         if let userOne = UserController.userOne {
-            AsynchronousImageLoader.sharedImageInstance.imageForUrl(urlString: userOne.profilePictureURL, completion: { (image, url) in
+            ImageLoader.sharedLoader.imageForUrl(urlString: userOne.profileImageURL!, completionHandler: { (image, url) in
                 if let image = image {
                     self.friendOneImage.image = image
                 }
@@ -80,7 +93,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         }
         
         if let userTwo = UserController.userTwo {
-            AsynchronousImageLoader.sharedImageInstance.imageForUrl(urlString: userTwo.profilePictureURL, completion: { (image, url) in
+            ImageLoader.sharedLoader.imageForUrl(urlString: userTwo.profileImageURL!, completionHandler: { (image, url) in
                 if let image = image {
                     self.friendTwoImage.image = image
                 }
@@ -88,12 +101,15 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         }
         
     }
+    // MARK: - textField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        introductionMessageTextView.resignFirstResponder()
+        return true
+    }
     
 }
 
-protocol LinkAlertDelegate: class {
-    func removeBlurEffect(_ sender: ConnectAlert)
-}
+
 
 
 
