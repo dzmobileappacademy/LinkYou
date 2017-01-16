@@ -12,7 +12,7 @@ class User: FirebaseType {
     
     let KFirstName = "firstName"
     let KprofileImageURL = "imageURL"
-//    let Kgender = "gender"
+    let Kgender = "gender"
     let Kconversations = "conversations"
     let Kmatches = "matches"
     let KblockedUsers = "blockedUsers"
@@ -23,7 +23,7 @@ class User: FirebaseType {
     let firstName: String
     var profileImage: UIImage?
     var profileImageURL: String?
-//    let gender: String
+    let gender: String
     var conversations = [Conversation]()
     var conversationsIDs: [String] = []
     var blockedUsersIDs: [String] = []
@@ -37,13 +37,13 @@ class User: FirebaseType {
     // representing our model object in firebase as dictionaries, FIREBASE DOES NOT USE ARRAYS, INSTEAD IT USES DICTIONARIES. [A, B, C] >>>>> {0: A, 1: B, 2: C} in firebase
     
     var jsonValue: [String : AnyObject] {
-        return [KFirstName: firstName as AnyObject, KprofileImageURL: profileImageURL as AnyObject]
+        return [KFirstName: firstName as AnyObject, KprofileImageURL: profileImageURL as AnyObject, Kgender: gender as AnyObject]
     }
     
-    init(firstName: String, profileImageURL: String) {
+    init(firstName: String, profileImageURL: String, gender: String) {
         self.firstName = firstName
         self.profileImageURL = profileImageURL
-//        self.gender = gender
+        self.gender = gender
         
         var conversationIdentifiers: [String] = [] // because we are using the identifiers system we have to do that in the initialization
         for conversation in conversations {
@@ -74,10 +74,10 @@ class User: FirebaseType {
     
     required init?(json: [String : AnyObject], identifier: String) {
         guard let firstName = json[KFirstName] as? String,
-//            let gender = json[Kgender] as? String,
+            let gender = json[Kgender] as? String,
             let profileImageURL = json[KprofileImageURL] as? String else {return nil}
         self.firstName = firstName
-//        self.gender = gender
+        self.gender = gender
         self.profileImageURL = profileImageURL
         self.identifier = identifier
         

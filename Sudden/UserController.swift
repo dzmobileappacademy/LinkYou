@@ -37,7 +37,7 @@ class UserController {
     // Fetch All Users images From Firebase
     
     static func fetchAllUsers(_ completion: @escaping(_ users: [User]?) -> Void) {
-        FirebaseController.dataAtEndPoint("users") { (data) in
+        FirebaseController.dataAtEndPoint("users/") { (data) in
             if let json = data as? [String: AnyObject] {
                 let users = json.flatMap({User(json: $0.1 as! [String: AnyObject], identifier: $0.0)})
                 completion(users)
@@ -46,7 +46,7 @@ class UserController {
                 print("empty array ya si youcef")
             }
         }
-    
+        
     }
     
     
@@ -72,19 +72,30 @@ class UserController {
                         completion(false)
                     } else {
                         print("YAY LOGIN SUCCESSFULL!!!!")
-                        if let user = FIRAuth.auth()?.currentUser {
-                            for profile in user.providerData {
+                        if let mainUser = FIRAuth.auth()?.currentUser?.providerData{
+                            for profile in mainUser {
                                 let providerID = profile.providerID
                                 let uid = profile.uid // provider-specific UID
                                 let name = profile.displayName
                                 let email = profile.email
                                 let photoUrl = profile.photoURL
-
-                                
-                                var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"))
-                                newUser.save()
-                                self.currentUserID = uid
-                                
+                                if (FBSDKAccessToken.current() != nil) {
+                                    let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, gender, first_name, last_name, middle_name, picture"])
+                                    facebookRequest?.start(completionHandler: { (connection, result, error) in
+                                        
+                                        if error == nil {
+                                            print(result as Any)
+                                            let data = result as! NSDictionary
+                                            let gender = data.object(forKey: "gender") as! String
+                                            
+                                            var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"), gender: gender)
+                                            newUser.save()
+                                            self.currentUserID = uid
+                                        }
+                                    })
+                                    
+                                }
+                                //
                                 completion(true)
                                 
                                 
@@ -103,48 +114,48 @@ class UserController {
     }
     
     
-    // Get Facebook Friend List
+    // Get Facebook Friend List for future reference only. not used on this app
     
-//    static func getFriendsList(_ completion: @escaping (_ users: [User]) -> Void) {
-//        let facebookRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id, first_name, last_name, middle_name, email, images, picture"])
-//        facebookRequest?.start(completionHandler: { (connection:FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
-//            if error == nil {
-//                
-//                
-//                // no errors!! great.. now get some facebook friends
-//                var users = [User]()
-//                let resultDictionary = result as! NSDictionary
-//                print("RESULT DICTIOINARY: \(resultDictionary)")
-//                var data: Array = resultDictionary["data"] as! NSArray as Array
-//                for i in 0..<data.count {
-//                    let valueDictionary = data[i]  as? NSDictionary
-//                    let firstName = valueDictionary?.object(forKey: "first_name") as! String
-//                    let id = valueDictionary?.object(forKey: "id") as! String
-//                    guard let picture = valueDictionary?.object(forKey: "picture") as? [String: AnyObject] else  {return}
-//                    guard let data = picture["data"] as? [String: AnyObject] else {return}
-//                    guard let imageURL = data ["url"] as? String else {return print("failed loading the profile picture")}
-//                    
-//                    let user = User(firstName: firstName, profileImageURL: imageURL)
-//                    users.append(user)
-//                }
-//                
-//                
-//                
-//                completion(users)
-//                print("FACEBOOK FRIENDS LIST: \(users)")
-//                
-//                
-//                
-//                
-//            } else {
-//                print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
-//            }
-//            
-//            
-//        })
-//        
-//        
-//    }
+    //    static func getFriendsList(_ completion: @escaping (_ users: [User]) -> Void) {
+    //        let facebookRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id, first_name, last_name, middle_name, email, images, picture"])
+    //        facebookRequest?.start(completionHandler: { (connection:FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+    //            if error == nil {
+    //
+    //
+    //                // no errors!! great.. now get some facebook friends
+    //                var users = [User]()
+    //                let resultDictionary = result as! NSDictionary
+    //                print("RESULT DICTIOINARY: \(resultDictionary)")
+    //                var data: Array = resultDictionary["data"] as! NSArray as Array
+    //                for i in 0..<data.count {
+    //                    let valueDictionary = data[i]  as? NSDictionary
+    //                    let firstName = valueDictionary?.object(forKey: "first_name") as! String
+    //                    let id = valueDictionary?.object(forKey: "id") as! String
+    //                    guard let picture = valueDictionary?.object(forKey: "picture") as? [String: AnyObject] else  {return}
+    //                    guard let data = picture["data"] as? [String: AnyObject] else {return}
+    //                    guard let imageURL = data ["url"] as? String else {return print("failed loading the profile picture")}
+    //
+    //                    let user = User(firstName: firstName, profileImageURL: imageURL)
+    //                    users.append(user)
+    //                }
+    //
+    //
+    //
+    //                completion(users)
+    //                print("FACEBOOK FRIENDS LIST: \(users)")
+    //
+    //
+    //
+    //
+    //            } else {
+    //                print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
+    //            }
+    //            
+    //            
+    //        })
+    //        
+    //        
+    //    }
     
     
     // Logout
