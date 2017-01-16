@@ -18,8 +18,8 @@ protocol LinkAlertDelegate: class {
 class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var connectionLabel: UILabel!
-    @IBOutlet weak var friendOneImage: UIImageView!
-    @IBOutlet weak var friendTwoImage: UIImageView!
+    @IBOutlet weak var userOneImage: UIImageView!
+    @IBOutlet weak var userTwoImage: UIImageView!
     @IBOutlet weak var introductionMessageTextView: UITextView!
     @IBOutlet weak var connectButtonOutlet: UIButton!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
@@ -87,7 +87,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         if let userOne = UserController.userOne {
             ImageLoader.sharedLoader.imageForUrl(urlString: userOne.profileImageURL!, completionHandler: { (image, url) in
                 if let image = image {
-                    self.friendOneImage.image = image
+                    self.userOneImage.image = image
                 }
             })
         }
@@ -95,7 +95,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         if let userTwo = UserController.userTwo {
             ImageLoader.sharedLoader.imageForUrl(urlString: userTwo.profileImageURL!, completionHandler: { (image, url) in
                 if let image = image {
-                    self.friendTwoImage.image = image
+                    self.userTwoImage.image = image
                 }
             })
         }
