@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,28 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Compatible?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJj-11-Ruo">
-                    <rect key="frame" x="18" y="128" width="341" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="T7X-U3-9M8"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.14079212079847458" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
-                    <rect key="frame" x="18" y="181" width="343" height="99"/>
-                    <color key="backgroundColor" red="0.97868064042480474" green="1" blue="0.98455358938904602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="99" id="RY2-K6-17T"/>
-                    </constraints>
-                    <string key="text">Do you think these two looks compatible? Give a try then and send them an introduction message describing why you think they are compatible...</string>
-                    <color key="textColor" red="0.0025380710659897998" green="0.00025424626145440659" blue="0.00068474466681753352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="light"/>
-                </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYs-DD-Jyq">
-                    <rect key="frame" x="129" y="328" width="121" height="21"/>
+                    <rect key="frame" x="129" y="307" width="121" height="42"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" red="0.89831852791878175" green="0.12181673355229784" blue="0.28068607987276084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -46,17 +26,17 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kfn-ZA-scA">
-                    <rect key="frame" x="18" y="20" width="131" height="100"/>
+                    <rect key="frame" x="18" y="20" width="125" height="125"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="100" id="U68-pH-3VK"/>
-                        <constraint firstAttribute="width" constant="131" id="fUk-TU-cGg"/>
+                        <constraint firstAttribute="height" constant="125" id="U68-pH-3VK"/>
+                        <constraint firstAttribute="width" constant="125" id="fUk-TU-cGg"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d4X-UC-Asf">
-                    <rect key="frame" x="228" y="20" width="131" height="100"/>
+                    <rect key="frame" x="228" y="20" width="125" height="125"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igR-zH-FbE">
-                    <rect key="frame" x="129" y="288" width="121" height="27"/>
+                    <rect key="frame" x="129" y="267" width="121" height="27"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="27" id="EIL-2N-J8v"/>
                         <constraint firstAttribute="width" constant="121" id="aZc-cF-Stc"/>
@@ -69,37 +49,43 @@
                         <action selector="connectButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ok3-1X-GpL"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
+                    <rect key="frame" x="16" y="153" width="343" height="99"/>
+                    <color key="backgroundColor" red="0.97868064042480474" green="1" blue="0.98455358938904602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="99" id="RY2-K6-17T"/>
+                    </constraints>
+                    <string key="text">Do you think these two looks compatible? Give a try then and send them an introduction message describing why you think they are compatible...</string>
+                    <color key="textColor" red="0.0025380710659897998" green="0.00025424626145440659" blue="0.00068474466681753352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="light"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="Ol8-l4-hTZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="2xb-Eg-OaM"/>
                 <constraint firstAttribute="bottom" secondItem="LYs-DD-Jyq" secondAttribute="bottom" constant="11" id="7Vo-Di-6rH"/>
-                <constraint firstItem="Ol8-l4-hTZ" firstAttribute="top" secondItem="JJj-11-Ruo" secondAttribute="bottom" constant="8" id="BGW-PR-o7M"/>
                 <constraint firstItem="igR-zH-FbE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="129" id="Cil-T3-Fam"/>
                 <constraint firstItem="LYs-DD-Jyq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="129" id="DfP-E6-aJs"/>
-                <constraint firstItem="d4X-UC-Asf" firstAttribute="leading" secondItem="kfn-ZA-scA" secondAttribute="trailing" constant="79" id="GLu-Uo-UC3"/>
-                <constraint firstItem="JJj-11-Ruo" firstAttribute="top" secondItem="kfn-ZA-scA" secondAttribute="bottom" constant="8" id="IGS-g6-ctQ"/>
-                <constraint firstItem="JJj-11-Ruo" firstAttribute="leading" secondItem="Ol8-l4-hTZ" secondAttribute="leading" id="LVQ-Bl-taB"/>
+                <constraint firstItem="d4X-UC-Asf" firstAttribute="leading" secondItem="kfn-ZA-scA" secondAttribute="trailing" constant="85" id="GLu-Uo-UC3"/>
                 <constraint firstAttribute="trailing" secondItem="igR-zH-FbE" secondAttribute="trailing" constant="129" id="M77-zi-idt"/>
-                <constraint firstItem="JJj-11-Ruo" firstAttribute="trailing" secondItem="d4X-UC-Asf" secondAttribute="trailing" id="Qys-jc-Ue9"/>
                 <constraint firstItem="LYs-DD-Jyq" firstAttribute="top" secondItem="igR-zH-FbE" secondAttribute="bottom" constant="13" id="bDp-Ya-Ipn"/>
                 <constraint firstAttribute="trailing" secondItem="LYs-DD-Jyq" secondAttribute="trailing" constant="129" id="dFf-d0-2yH"/>
-                <constraint firstItem="igR-zH-FbE" firstAttribute="top" secondItem="Ol8-l4-hTZ" secondAttribute="bottom" constant="8" id="hS7-cJ-yes"/>
-                <constraint firstAttribute="trailing" secondItem="d4X-UC-Asf" secondAttribute="trailing" constant="20" id="he8-OV-pEH"/>
+                <constraint firstItem="igR-zH-FbE" firstAttribute="top" secondItem="Ol8-l4-hTZ" secondAttribute="bottom" constant="15" id="hS7-cJ-yes"/>
+                <constraint firstAttribute="trailing" secondItem="d4X-UC-Asf" secondAttribute="trailing" constant="26" id="he8-OV-pEH"/>
                 <constraint firstItem="kfn-ZA-scA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="k9H-eh-iTV"/>
                 <constraint firstItem="kfn-ZA-scA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="nEA-kI-GwO"/>
-                <constraint firstItem="JJj-11-Ruo" firstAttribute="leading" secondItem="kfn-ZA-scA" secondAttribute="leading" id="o8a-39-VRj"/>
-                <constraint firstItem="Ol8-l4-hTZ" firstAttribute="centerX" secondItem="igR-zH-FbE" secondAttribute="centerX" id="oLp-Ht-3qF"/>
+                <constraint firstItem="Ol8-l4-hTZ" firstAttribute="centerX" secondItem="igR-zH-FbE" secondAttribute="centerX" constant="-2" id="oLp-Ht-3qF"/>
                 <constraint firstItem="d4X-UC-Asf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="uk9-oR-5lU"/>
-                <constraint firstItem="JJj-11-Ruo" firstAttribute="top" secondItem="d4X-UC-Asf" secondAttribute="bottom" constant="8" id="wob-Ex-xQy"/>
+                <constraint firstItem="d4X-UC-Asf" firstAttribute="bottom" secondItem="kfn-ZA-scA" secondAttribute="bottom" id="uoV-Ta-wMM"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="cancelButtonOutlet" destination="LYs-DD-Jyq" id="281-S5-d25"/>
                 <outlet property="connectButtonOutlet" destination="igR-zH-FbE" id="BfC-0u-Tbu"/>
-                <outlet property="connectionLabel" destination="JJj-11-Ruo" id="Yug-c5-QSu"/>
-                <outlet property="friendOneImage" destination="d4X-UC-Asf" id="OvP-J9-hVp"/>
-                <outlet property="friendTwoImage" destination="kfn-ZA-scA" id="66m-f5-xk9"/>
                 <outlet property="introductionMessageTextView" destination="Ol8-l4-hTZ" id="8ct-jA-sWj"/>
+                <outlet property="userOneImage" destination="kfn-ZA-scA" id="8Mw-hG-DPd"/>
+                <outlet property="userTwoImage" destination="d4X-UC-Asf" id="Yfr-87-pZy"/>
             </connections>
             <point key="canvasLocation" x="11.5" y="-363"/>
         </view>

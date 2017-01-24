@@ -64,22 +64,23 @@ class UserController {
                 
                 completion(false)
             } else {
-                let accessToken = FBSDKAccessToken.current().tokenString
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken!)
-                FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
-                    if error != nil {
-                        print("SIGN IN WITH FIREBASE FAILED")
-                        completion(false)
-                    } else {
-                        print("YAY LOGIN SUCCESSFULL!!!!")
-                        if let mainUser = FIRAuth.auth()?.currentUser?.providerData{
-                            for profile in mainUser {
-                                let providerID = profile.providerID
-                                let uid = profile.uid // provider-specific UID
-                                let name = profile.displayName
-                                let email = profile.email
-                                let photoUrl = profile.photoURL
-                                if (FBSDKAccessToken.current() != nil) {
+                if FBSDKAccessToken.current() != nil {
+                    let accessToken = FBSDKAccessToken.current().tokenString
+                    let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken!)
+                    FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+                        if error != nil {
+                            print("SIGN IN WITH FIREBASE FAILED")
+                            completion(false)
+                        } else {
+                            print("YAY LOGIN SUCCESSFULL!!!!")
+                            if let mainUser = FIRAuth.auth()?.currentUser?.providerData{
+                                for profile in mainUser {
+                                    let providerID = profile.providerID
+                                    let uid = profile.uid // provider-specific UID
+                                    let name = profile.displayName
+                                    let email = profile.email
+                                    let photoUrl = profile.photoURL
+                                    //                                if (FBSDKAccessToken.current() != nil) {
                                     let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, gender, first_name, last_name, middle_name, picture"])
                                     facebookRequest?.start(completionHandler: { (connection, result, error) in
                                         
@@ -91,22 +92,27 @@ class UserController {
                                             var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"), gender: gender)
                                             newUser.save()
                                             self.currentUserID = uid
+                                            completion(true)
+
                                         }
                                     })
                                     
+                                    //                                }
+                                    //
+                                    //                                completion(true)
+                                    
+                                    
+                                    
+                                    
                                 }
-                                //
-                                completion(true)
-                                
-                                
-                                
-                                
+//                                completion(true)
+                            
                             }
-                        } else {
-                            print("NO USER IS SIGNED-IN")
                         }
-                    }
-                })
+                    })
+                } else {
+                    completion(false)
+                }
             }
             
         })

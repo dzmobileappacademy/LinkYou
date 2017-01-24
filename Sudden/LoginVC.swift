@@ -10,23 +10,30 @@ import UIKit
 import FBSDKLoginKit
 import Firebase
 import FirebaseAuth
+import FBSDKCoreKit
 
 
 class LoginVC: UIViewController {
     
-    @IBOutlet weak var suddenLogoImage: UIImageView!
     
+    @IBOutlet weak var FrontParisImage: UIImageView!
     @IBOutlet weak var welcomeTextLabel: UILabel!
     
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
     }
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+    }
+    
+    
     @IBAction func facebookLoginButtonTapped(_ sender: UIButton) {
         UserController.createAndLogin(self) { (success) in
             if success {
@@ -35,19 +42,19 @@ class LoginVC: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
             
-        
-    }
+            
+        }
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

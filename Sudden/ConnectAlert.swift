@@ -41,7 +41,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
             let userTwo = UserController.userTwo {
             let creatorID = UserController.currentUserID
             ConversationController.createConversation(userOne.identifier!, userTwoID: userTwo.identifier!, conversationCreatorID: creatorID, completion: { (success, conversation) in
-                if self.introductionMessageTextView.text == "introduction message" || self.introductionMessageTextView.text == "" {
+                if self.introductionMessageTextView.text == " has text" || self.introductionMessageTextView.text == "" {
                     if let conversationID = conversation?.identifier {
                         var creatorName = ""
                         UserController.fetchUserForIdentifier(UserController.currentUserID, completion: { (user) in
@@ -49,12 +49,13 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
                                 creatorName = (user?.firstName)!
                                 let text = "\(creatorName) Wants  To Introduce you... "
                                 MessageController.createMessage(conversationID, userID: creatorID, text: text, completion: { (message) in
-                                    self.removeFromSuperview()
                                     print("message created successfully from the connection Alert CONNECT BUTTON!!!")
                                     // post notification to the observer to get it 
-                                    let notificationName = Notification.Name("blurRemoved")
-                                    NotificationCenter.default.post(name: notificationName, object: nil)
+//                                    let notificationName = Notification.Name("blurRemoved")
+//                                    NotificationCenter.default.post(name: notificationName, object: nil)
                                     self.connectionDelegate?.removeBlurEffect(self)
+                                    self.removeFromSuperview()
+
                                 })
                             }
                         })
@@ -62,9 +63,10 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
                 } else {
                     if let text = self.introductionMessageTextView.text, let conversationID = conversation?.identifier {
                         MessageController.createMessage(conversationID, userID: creatorID, text: text, completion: { (message) in
-                            self.removeFromSuperview()
                             print("message created successfully from the connection Alert CONNECT BUTTON!!!")
                             self.connectionDelegate?.removeBlurEffect(self)
+                            self.removeFromSuperview()
+
                         })
                     }
                 }
@@ -86,17 +88,19 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         
         if let userOne = UserController.userOne {
             ImageLoader.sharedLoader.imageForUrl(urlString: userOne.profileImageURL!, completionHandler: { (image, url) in
-                if let image = image {
-                    self.userOneImage.image = image
+                if let userImage = image {
+                    self.userOneImage.image = userImage
                 }
             })
         }
         
         if let userTwo = UserController.userTwo {
             ImageLoader.sharedLoader.imageForUrl(urlString: userTwo.profileImageURL!, completionHandler: { (image, url) in
-                if let image = image {
-                    self.userTwoImage.image = image
+                if let secondUserImage = image {
+                    self.userTwoImage.image = secondUserImage
                 }
+                self.userTwoImage.loadImageUsingCacheWithUrlString(userTwo.profileImageURL!)
+                
             })
         }
         

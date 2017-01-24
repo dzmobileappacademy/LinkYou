@@ -10,9 +10,10 @@ import UIKit
 import Foundation
 import Firebase
 import FirebaseDatabase
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkAlertDelegate {
-    
     // MARK: - Properties
     static var usersList = [User]()
     static var malesUsersList = [User]()
@@ -23,8 +24,8 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     static var isUserOneSelected: Bool =  false
     static var isUserTwoSelected: Bool = false
     // array of selected items in the collectionView. if selected add to the array, if not => remove from the array
-    var selectedUsersOneList: [String]?
-    var selectedUsersTwoList: [String]?
+    var selectedUsersOneList: [UIImage]?
+    var selectedUsersTwoList: [UIImage]?
     static var selectedUserOne: User?
     static var selectedUserTwo: User?
     var blurEffectView: UIVisualEffectView!
@@ -33,58 +34,63 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     fileprivate let itemsPerRow: CGFloat = 3
     fileprivate let sectionInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     let cellID = "cellIdentifier"
-    
     //    MARK: - IBOutlets
+    
     @IBOutlet weak var matchButtonOutlet: UIButton!
+//    @IBOutlet weak var matchButtonOutlet: UIButton!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var userCV: UICollectionView!
     @IBOutlet weak var userCVTwo: UICollectionView!
     @IBOutlet weak var conversationsButtonOutlet: UIBarButtonItem!
+    @IBOutlet weak var backgroundBlurEffect: UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        matchButtonOutlet.isHidden = true
+//        matchButtonOutlet.isHidden = true
         self.title = "Compatible"
-        
-        
+        // alpha customization for fadein animation
+        userCV.alpha = 0
+        userCVTwo.alpha = 0
         // GET USERS
         UserController.fetchAllUsers { (users) in
             DispatchQueue.main.async {
                 SuddenMainVC.usersList = users!
                 SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male"})
                 SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female"})
-                
             }
         }
-        
         logingAndGetFriendList()
-        presentLinkButton()
-        hideLinkButton()
-        
-//        removeMainBlur()
-        
+        //        presentLinkButton()
+        //        hideLinkButton()
+        if (SuddenMainVC.isUserTwoSelected == true && SuddenMainVC.isUserOneSelected == true) {
+            matchButtonOutlet.isHidden = false
+            view.bringSubview(toFront: matchButtonOutlet)
+        }
         self.automaticallyAdjustsScrollViewInsets = false
         self.userCV?.delegate = self
         self.userCV?.dataSource = self
-        
-        
-        // OVSERVERS
-//        NotificationCenter.default.addObserver(self, selector: #selector(presentLinkButton), name: NSNotification.Name(rawValue: "usersPicked"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(hideLinkButton), name: NSNotification.Name(rawValue: "usersUnpicked"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(presentSelectedUserOne), name: NSNotification.Name(rawValue: "userTwoUnpicked"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(presentSelectedUserTwo), name: NSNotification.Name(rawValue: "userTwoPicked"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(removeMainBlur), name: NSNotification.Name(rawValue: "MainBlurRemoved"), object: nil)
-
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        
+        super.viewWillAppear(animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        afterLoginAnimation()
+
+    }
+    
+    // first appearance animation aftr login
+    func afterLoginAnimation() {
+        UIView.animate(withDuration: 1.5) { 
+            self.userCV.alpha = 1
+            self.userCVTwo.alpha = 1
+            self.view.addSubview(self.userCV)
+            self.view.addSubview(self.userCVTwo)
+        }
+        
+    }
     // MARK: - REMOVE THE MAIN BLUR VIEW AFTER SELECTING BOTH USERS
     func removeMainBlur() {
         removeBlurViewTwo()
@@ -119,10 +125,9 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         
     }
     
-    
     // MARK: -  tap connect button, bring connectionAlert.XIB up front view
     @IBAction func connectButtonTapped(_ sender: UIButton) {
-        if let connectAlert = UINib(nibName: "ConnectAlert", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? ConnectAlert {
+        if let connectAlert = UINib(nibName: "Connect", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? ConnectAlert {
             connectAlert.connectionDelegate = self
             let blurEffect = UIBlurEffect(style: .light)
             blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -138,7 +143,10 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     // MARK: - IBAction for COMPATIBLE BUTTON
     
     @IBAction func compatibleButtonTapped(_ sender: Any) {
+        
+        
     }
+    
     // tap conversationbutton, go to "conversationsList,matches, waiting list" table view
     @IBAction func conversationsButtonTapped(_ sender: UIBarButtonItem) {
         print("traveling to conversations list ")
@@ -251,7 +259,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 self.selectedUsersOneList?.append(theUser.profileImageURL!)
                 SuddenMainVC.isUserOneSelected = true
                 presentSelectedUserOne()
-
+                
             }
             
         } else if collectionView == self.userCVTwo {
@@ -261,22 +269,22 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 self.selectedUsersTwoList?.append(theUser.profileImageURL!)
                 SuddenMainVC.isUserTwoSelected = true
                 presentSelectedUserTwo()
-
-            
+                
+                
             } else {
-            let theUser = SuddenMainVC.femalesUsersList[indexPath.item]
-            SuddenMainVC.selectedUserTwo = theUser
-            self.selectedUsersTwoList?.append(theUser.profileImageURL!)
-            SuddenMainVC.isUserTwoSelected = true
+                let theUser = SuddenMainVC.femalesUsersList[indexPath.item]
+                SuddenMainVC.selectedUserTwo = theUser
+                self.selectedUsersTwoList?.append(theUser.profileImageURL!)
+                SuddenMainVC.isUserTwoSelected = true
                 presentSelectedUserTwo()
-
+                
+            }
+            
+            let userPickedNotification = Notification(name: Notification.Name(rawValue: "userPicked"))
+            NotificationCenter.default.post(userPickedNotification)
+            let allUserPicked = Notification(name: Notification.Name(rawValue: "allUsersPicked"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(allUserPicked)
         }
-        
-        let userPickedNotification = Notification(name: Notification.Name(rawValue: "userPicked"))
-        NotificationCenter.default.post(userPickedNotification)
-        let allUserPicked = Notification(name: Notification.Name(rawValue: "allUsersPicked"), object: nil, userInfo: nil)
-        NotificationCenter.default.post(allUserPicked)
-    }
     }
     
     // MARK: - Core Functions
@@ -286,6 +294,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         if (SuddenMainVC.isUserTwoSelected == true && SuddenMainVC.isUserOneSelected == true) {
             matchButtonOutlet.isHidden = false
             view.bringSubview(toFront: matchButtonOutlet)
+            backgroundBlurEffect.addSubview(matchButtonOutlet)
         }
         
     }
@@ -349,10 +358,10 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         self.userCV.reloadData()
         
     }
-
+    
     // MARK: - Presenting Users after pickup
     func presentSelectedUserOne() {
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .regular)
         let tap = UITapGestureRecognizer(target: self, action: #selector(removeBlurOneView))
         blurEffectViewOne = UIVisualEffectView(effect: blurEffect)
         blurEffectViewOne.frame = CGRect(x: 0, y: 121, width: view.frame.width, height: 177)
@@ -373,17 +382,17 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         // 2- IMAGE VIEW OF THE USER 1
         let userOneImageView: UIImageView = {
             let userOneImage = UIImageView()
-            userOneImage.layer.cornerRadius = 8
-            userOneImage.frame = CGRect(x: ((view.frame.width / 2) - 70), y: 13, width: ((containerView.frame.width) - 4), height: ((containerView.frame.height) - 10))
-            userOneImage.contentMode = .scaleAspectFill
+            userOneImage.frame = CGRect(x: ((view.center.x / 2) + 40), y: ((view.center.y) - 360), width: 120, height: 120)
+            
             return userOneImage
         }()
-        
         
         //3- USER FIRST NAME LABEL
         let userOneFirstName: UILabel = {
             let usernameLabel = UILabel()
-            usernameLabel.frame = CGRect(x: ((view.frame.width / 2) - 70), y: 25, width: containerView.frame.width, height: 21)
+            usernameLabel.frame = CGRect(x: ((view.frame.width / 2) - 100), y: 150, width: 200, height: 21)
+            usernameLabel.textAlignment = .center
+            
             return usernameLabel
         }()
         
@@ -392,36 +401,33 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         if let selectedUserOneIndex = indexPaths?.first?.item {
             if SuddenMainVC.topFiltredList.count > 0 {
                 let user = SuddenMainVC.topFiltredList[selectedUserOneIndex]
-                userOneImageView.image = UIImage(named: user.profileImageURL!)
+                userOneImageView.image = UIImage(named: "youcef")
                 userOneFirstName.text = user.firstName
                 filteredUsersList(user, list: SuddenMainVC.femalesUsersList, isBottom: true, completion: { (success) in
                     self.userCVTwo.reloadData()
                 })
             } else {
                 let user = SuddenMainVC.malesUsersList[selectedUserOneIndex]
-                userOneImageView.image = UIImage(contentsOfFile: user.profileImageURL!)
+                let url = NSURL(string: user.profileImageURL!)
+                let data = NSData(contentsOf: url as! URL)
+                userOneImageView.image = UIImage(data: data as! Data)
                 userOneFirstName.text = user.firstName
                 filteredUsersList(user, list: SuddenMainVC.femalesUsersList, isBottom: true, completion: { (success) in
                     self.userCVTwo.reloadData()
                 })
-                
             }
             
         }
         // ADDING VIEWS TO BLUR EFFECT VIEW ONE
         blurEffectViewOne.addGestureRecognizer(tap)
-        blurEffectViewOne.addSubview(containerView)
         blurEffectViewOne.addSubview(userOneImageView)
         blurEffectViewOne.addSubview(userOneFirstName)
-        
-
-        
     }
     
     // USER 2 SELECTED FROM SECOND COLLECTIONVIEW
     func presentSelectedUserTwo() {
         let blurEffectTwo = UIBlurEffect(style: .light)
-        let tapTwo = UIGestureRecognizer(target: self, action: #selector(removeBlurViewTwo))
+        let tapTwo = UITapGestureRecognizer(target: self, action: #selector(removeBlurViewTwo))
         blurEffectViewTwo = UIVisualEffectView(effect: blurEffectTwo)
         blurEffectViewTwo.frame = CGRect(x: 0, y: 439, width: view.frame.width, height: 177)
         blurEffectViewTwo.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -432,7 +438,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             let containerV = UIView()
             containerV.frame = CGRect(x: (userCVTwo.center.x), y: view.center.y , width: view.frame.width, height: userCVTwo.frame.height)
             containerV.clipsToBounds = true
-
+            
             containerV.backgroundColor = .yellow
             containerV.layer.cornerRadius = 8
             return containerV
@@ -442,7 +448,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         let userTwoImageView: UIImageView = {
             let userTwoImage = UIImageView()
             userTwoImage.layer.cornerRadius = 8
-            userTwoImage.frame = CGRect(x: view.center.y / 2, y: 0, width: 124, height: 113)
+            userTwoImage.frame = CGRect(x: ((view.center.y / 2) - 40), y: 10, width: 130, height: 130)
             userTwoImage.contentMode = .scaleAspectFill
             return userTwoImage
         }()
@@ -451,7 +457,8 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         //3- USER FIRST NAME LABEL 2
         let userTwoFirstName: UILabel = {
             let username = UILabel()
-            username.frame = CGRect(x: ((view.frame.width / 2) - 70), y: 89, width: 124, height: 21)
+            username.frame = CGRect(x: (view.center.x / 2), y: 150, width: 200, height: 21)
+            username.textAlignment = .center
             return username
         }()
         
@@ -472,23 +479,17 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                     self.userCV.reloadData()
                 })
                 
-                
-                
-                
             }
             
         }
         // ADDING VIEWS TO BLUR EFFECT VIEW ONE
         blurEffectViewTwo.addGestureRecognizer(tapTwo)
-        blurEffectViewTwo.addSubview(containerViewTwo)
+        //        blurEffectViewTwo.addSubview(containerViewTwo)
         blurEffectViewTwo.addSubview(userTwoImageView)
         blurEffectViewTwo.addSubview(userTwoFirstName)
         
-
+    }
     
-
-}
-
 }
 extension UIColor {
     convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {

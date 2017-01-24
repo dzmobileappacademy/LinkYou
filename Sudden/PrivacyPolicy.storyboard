@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="IbX-Fz-hhj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="IbX-Fz-hhj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,25 +22,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32u-Nh-YBn">
-                                <rect key="frame" x="16" y="191" width="343" height="339"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Communication is a freedom, but at the same time it's respect. As we respect our users, we try our best to maintain the security and the privacy of our app always. This app is meant to be a positive tool to help you connect and network with other peple as well as helping your friends network and maybe get that next opportunity, whether it's a job, a gig or friendship, this app is the right one to keep on your iPhone, because you never know when you get that message from your friend recommending you to his client.               </mutableString>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paris" translatesAutoresizingMaskIntoConstraints="NO" id="Xqf-xi-Cmg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ovl-TW-Ehi">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="buj-UH-aSX">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRl-vU-LIU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="HBY-dP-vQZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" directionalLockEnabled="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32u-Nh-YBn">
+                                <rect key="frame" x="16" y="278" width="343" height="222"/>
+                                <color key="backgroundColor" red="1" green="0.95542983545184623" blue="0.97588296097751814" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <mutableString key="text">Communication is freedom, but at the same time it's respect. As we respect our users, we try our best to maintain the security and the privacy of our app always. This app is meant to be a positive tool to help you connect and network with other peple as well as helping your friends network and maybe get that next opportunity, whether it's a job, a gig or friendship, this app is the right one to keep on your iPhone, because you never know when you get that message from your friend recommending you to his client.               </mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="matchButtonImage" translatesAutoresizingMaskIntoConstraints="NO" id="a1t-M2-fch">
-                                <rect key="frame" x="108" y="55" width="159" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="JVa-TH-RhU"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NpH-Bo-iL4">
-                                <rect key="frame" x="147" y="573" width="80" height="30"/>
+                                <rect key="frame" x="147" y="558" width="80" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Z4i-O3-8Jk"/>
                                 </constraints>
-                                <state key="normal" title="Done"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="doneButtonTapped:" destination="IbX-Fz-hhj" eventType="touchUpInside" id="ZHW-21-rJK"/>
                                 </connections>
@@ -49,18 +70,25 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NpH-Bo-iL4" firstAttribute="centerX" secondItem="32u-Nh-YBn" secondAttribute="centerX" id="33t-q0-GiI"/>
-                            <constraint firstItem="32u-Nh-YBn" firstAttribute="top" secondItem="a1t-M2-fch" secondAttribute="bottom" constant="8" symbolic="YES" id="7ue-R2-3E9"/>
+                            <constraint firstItem="ovl-TW-Ehi" firstAttribute="trailing" secondItem="Xqf-xi-Cmg" secondAttribute="trailing" id="EXn-Pb-epb"/>
+                            <constraint firstItem="Xqf-xi-Cmg" firstAttribute="centerX" secondItem="NpH-Bo-iL4" secondAttribute="centerX" id="H9H-0e-uZO"/>
+                            <constraint firstItem="ovl-TW-Ehi" firstAttribute="bottom" secondItem="Eto-Rn-nX4" secondAttribute="top" id="Kkl-Tx-e9q"/>
                             <constraint firstItem="32u-Nh-YBn" firstAttribute="leading" secondItem="lum-YH-FoP" secondAttribute="leadingMargin" id="Kme-hC-d1F"/>
-                            <constraint firstItem="NpH-Bo-iL4" firstAttribute="top" secondItem="32u-Nh-YBn" secondAttribute="bottom" constant="43" id="R3p-h5-65l"/>
+                            <constraint firstItem="NpH-Bo-iL4" firstAttribute="top" secondItem="32u-Nh-YBn" secondAttribute="bottom" constant="58" id="R3p-h5-65l"/>
                             <constraint firstItem="Eto-Rn-nX4" firstAttribute="top" secondItem="NpH-Bo-iL4" secondAttribute="bottom" constant="64" id="RWO-Mo-Hdq"/>
-                            <constraint firstItem="a1t-M2-fch" firstAttribute="leading" secondItem="lum-YH-FoP" secondAttribute="leadingMargin" constant="92" id="UKj-dd-Q4a"/>
-                            <constraint firstItem="a1t-M2-fch" firstAttribute="top" secondItem="aaT-qf-DTk" secondAttribute="bottom" constant="35" id="Ziu-ua-IKr"/>
+                            <constraint firstItem="ovl-TW-Ehi" firstAttribute="leading" secondItem="Xqf-xi-Cmg" secondAttribute="leading" id="SL8-bh-3v9"/>
+                            <constraint firstItem="Xqf-xi-Cmg" firstAttribute="leading" secondItem="lum-YH-FoP" secondAttribute="leading" id="TTG-zZ-vrD"/>
                             <constraint firstItem="NpH-Bo-iL4" firstAttribute="centerX" secondItem="lum-YH-FoP" secondAttribute="centerX" id="by2-or-Gen"/>
-                            <constraint firstItem="NpH-Bo-iL4" firstAttribute="centerX" secondItem="a1t-M2-fch" secondAttribute="centerX" id="v0y-eB-koD"/>
+                            <constraint firstItem="32u-Nh-YBn" firstAttribute="top" secondItem="aaT-qf-DTk" secondAttribute="bottom" constant="258" id="cQN-q8-b68"/>
+                            <constraint firstItem="Xqf-xi-Cmg" firstAttribute="top" secondItem="lum-YH-FoP" secondAttribute="top" id="puH-2T-578"/>
+                            <constraint firstItem="ovl-TW-Ehi" firstAttribute="top" secondItem="Xqf-xi-Cmg" secondAttribute="top" id="rR7-fB-pNU"/>
+                            <constraint firstItem="Xqf-xi-Cmg" firstAttribute="bottom" secondItem="Eto-Rn-nX4" secondAttribute="top" id="w6n-oK-CIq"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="logoImage" destination="a1t-M2-fch" id="CUE-Hx-MXS"/>
+                        <outlet property="backgroundImageParis" destination="Xqf-xi-Cmg" id="Xep-o0-fOr"/>
+                        <outlet property="blurEffect" destination="ovl-TW-Ehi" id="3ah-2b-8kI"/>
+                        <outlet property="doneButtonOutlet" destination="NpH-Bo-iL4" id="oNW-fE-hfa"/>
                         <outlet property="privacyPolicyTextView" destination="32u-Nh-YBn" id="0Bf-9r-YXu"/>
                     </connections>
                 </viewController>
@@ -70,6 +98,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="matchButtonImage" width="138" height="116"/>
+        <image name="paris" width="160" height="240"/>
     </resources>
 </document>
