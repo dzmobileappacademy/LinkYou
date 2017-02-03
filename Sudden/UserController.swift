@@ -80,7 +80,6 @@ class UserController {
                                     let name = profile.displayName
                                     let email = profile.email
                                     let photoUrl = profile.photoURL
-                                    //                                if (FBSDKAccessToken.current() != nil) {
                                     let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, gender, first_name, last_name, middle_name, picture"])
                                     facebookRequest?.start(completionHandler: { (connection, result, error) in
                                         
@@ -93,20 +92,12 @@ class UserController {
                                             newUser.save()
                                             self.currentUserID = uid
                                             completion(true)
-
+                                            
                                         }
                                     })
                                     
-                                    //                                }
-                                    //
-                                    //                                completion(true)
-                                    
-                                    
-                                    
-                                    
                                 }
-//                                completion(true)
-                            
+                                
                             }
                         }
                     })
@@ -156,11 +147,11 @@ class UserController {
     //            } else {
     //                print("ERROR LOADING FRIENDS FROM FACEBOOK: \(error?.localizedDescription)")
     //            }
-    //            
-    //            
+    //
+    //
     //        })
-    //        
-    //        
+    //
+    //
     //    }
     
     

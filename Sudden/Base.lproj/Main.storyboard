@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="og4-xU-Tiq" id="NkH-O3-hft">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2J-w8-3TL">
@@ -94,22 +94,29 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="svl-mW-4cx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozE-WD-A1c">
+                                            <rect key="frame" x="123" y="259" width="128" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="KZG-0d-YAi"/>
+                                                <constraint firstAttribute="width" constant="128" id="gzL-DJ-1Rx"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <state key="normal" title="Compatible">
+                                                <color key="titleColor" red="0.0077816467428022951" green="0.0083998095293374344" blue="0.04840180837563457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="connectButtonTapped:" destination="Gxp-bb-WIE" eventType="touchUpInside" id="Wdc-0G-IOq"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ozE-WD-A1c" firstAttribute="centerX" secondItem="svl-mW-4cx" secondAttribute="centerX" id="5f0-GI-fwR"/>
+                                        <constraint firstItem="ozE-WD-A1c" firstAttribute="centerY" secondItem="svl-mW-4cx" secondAttribute="centerY" constant="-31.5" id="tU6-Eo-B2R"/>
+                                    </constraints>
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozE-WD-A1c">
-                                <rect key="frame" x="123" y="314" width="128" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="128" id="gzL-DJ-1Rx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Compatible">
-                                    <color key="titleColor" red="0.0077816467428022951" green="0.0083998095293374344" blue="0.04840180837563457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="connectButtonTapped:" destination="Gxp-bb-WIE" eventType="touchUpInside" id="Wdc-0G-IOq"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="U5s-EM-vPd">
                                 <rect key="frame" x="0.0" y="121" width="375" height="177"/>
                                 <color key="backgroundColor" red="0.77035906345810523" green="0.85509939398204526" blue="0.88878093274111669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -187,7 +194,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="cellIdentifier" id="rWq-Pw-kew" customClass="FriendCollectionViewCell" customModule="Sudden" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="124" height="122"/>
+                                        <rect key="frame" x="0.0" y="27.5" width="124" height="122"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="124" height="122"/>
@@ -245,12 +252,9 @@
                             <constraint firstItem="jGo-pj-F2l" firstAttribute="top" secondItem="ZzA-LH-p6D" secondAttribute="bottom" id="78C-Dx-bnQ"/>
                             <constraint firstItem="jGo-pj-F2l" firstAttribute="bottom" secondItem="iaj-Sb-uMB" secondAttribute="top" id="HHn-Y6-35U"/>
                             <constraint firstItem="fL2-ka-tgV" firstAttribute="trailing" secondItem="U5s-EM-vPd" secondAttribute="trailing" id="MUx-aY-0aJ"/>
-                            <constraint firstItem="ozE-WD-A1c" firstAttribute="centerY" secondItem="usG-C0-06h" secondAttribute="centerY" id="QXi-4X-FBP"/>
                             <constraint firstItem="jGo-pj-F2l" firstAttribute="leading" secondItem="XEQ-3e-cZR" secondAttribute="leading" id="RFf-S0-m1D"/>
                             <constraint firstItem="jGo-pj-F2l" firstAttribute="top" secondItem="XEQ-3e-cZR" secondAttribute="top" id="WXq-r6-P2r"/>
-                            <constraint firstItem="ozE-WD-A1c" firstAttribute="centerX" secondItem="U5s-EM-vPd" secondAttribute="centerX" id="chB-4B-vbg"/>
                             <constraint firstItem="iaj-Sb-uMB" firstAttribute="top" secondItem="fL2-ka-tgV" secondAttribute="bottom" constant="121" id="cy9-aP-cLq"/>
-                            <constraint firstItem="ozE-WD-A1c" firstAttribute="top" secondItem="U5s-EM-vPd" secondAttribute="bottom" constant="16" id="fxQ-DZ-ebY"/>
                             <constraint firstItem="jGo-pj-F2l" firstAttribute="bottom" secondItem="XEQ-3e-cZR" secondAttribute="bottom" id="jrV-4H-iQi"/>
                             <constraint firstItem="jGo-pj-F2l" firstAttribute="trailing" secondItem="XEQ-3e-cZR" secondAttribute="trailing" id="nnH-jl-5cp"/>
                             <constraint firstItem="fL2-ka-tgV" firstAttribute="leading" secondItem="U5s-EM-vPd" secondAttribute="leading" id="sjh-aI-fKX"/>
@@ -293,7 +297,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyM-ev-hlf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ciA-qH-ySv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ciA-qH-ySv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -16,7 +16,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYs-DD-Jyq">
-                    <rect key="frame" x="129" y="307" width="121" height="42"/>
+                    <rect key="frame" x="129" y="325" width="121" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="MzD-Wp-tbo"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" red="0.89831852791878175" green="0.12181673355229784" blue="0.28068607987276084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -49,32 +52,31 @@
                         <action selector="connectButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ok3-1X-GpL"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type Something..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
                     <rect key="frame" x="16" y="153" width="343" height="99"/>
-                    <color key="backgroundColor" red="0.97868064042480474" green="1" blue="0.98455358938904602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.96154323544294407" green="1" blue="0.89372777419229243" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="99" id="RY2-K6-17T"/>
                     </constraints>
-                    <string key="text">Do you think these two looks compatible? Give a try then and send them an introduction message describing why you think they are compatible...</string>
-                    <color key="textColor" red="0.0025380710659897998" green="0.00025424626145440659" blue="0.00068474466681753352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.74342133180000003" green="0.75559310069999996" blue="0.78884438450000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="light"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" enablesReturnKeyAutomatically="YES"/>
                 </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Ol8-l4-hTZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="2xb-Eg-OaM"/>
-                <constraint firstAttribute="bottom" secondItem="LYs-DD-Jyq" secondAttribute="bottom" constant="11" id="7Vo-Di-6rH"/>
                 <constraint firstItem="igR-zH-FbE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="129" id="Cil-T3-Fam"/>
-                <constraint firstItem="LYs-DD-Jyq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="129" id="DfP-E6-aJs"/>
                 <constraint firstItem="d4X-UC-Asf" firstAttribute="leading" secondItem="kfn-ZA-scA" secondAttribute="trailing" constant="85" id="GLu-Uo-UC3"/>
+                <constraint firstItem="LYs-DD-Jyq" firstAttribute="top" secondItem="igR-zH-FbE" secondAttribute="bottom" constant="31" id="Gja-vb-Tzg"/>
+                <constraint firstItem="LYs-DD-Jyq" firstAttribute="trailing" secondItem="igR-zH-FbE" secondAttribute="trailing" id="Hv0-vD-V5h"/>
                 <constraint firstAttribute="trailing" secondItem="igR-zH-FbE" secondAttribute="trailing" constant="129" id="M77-zi-idt"/>
-                <constraint firstItem="LYs-DD-Jyq" firstAttribute="top" secondItem="igR-zH-FbE" secondAttribute="bottom" constant="13" id="bDp-Ya-Ipn"/>
-                <constraint firstAttribute="trailing" secondItem="LYs-DD-Jyq" secondAttribute="trailing" constant="129" id="dFf-d0-2yH"/>
+                <constraint firstAttribute="bottom" secondItem="LYs-DD-Jyq" secondAttribute="bottom" constant="11" id="fcc-zG-2gp"/>
                 <constraint firstItem="igR-zH-FbE" firstAttribute="top" secondItem="Ol8-l4-hTZ" secondAttribute="bottom" constant="15" id="hS7-cJ-yes"/>
                 <constraint firstAttribute="trailing" secondItem="d4X-UC-Asf" secondAttribute="trailing" constant="26" id="he8-OV-pEH"/>
                 <constraint firstItem="kfn-ZA-scA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="k9H-eh-iTV"/>
                 <constraint firstItem="kfn-ZA-scA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="nEA-kI-GwO"/>
+                <constraint firstItem="LYs-DD-Jyq" firstAttribute="leading" secondItem="igR-zH-FbE" secondAttribute="leading" id="oLW-E5-Kpc"/>
                 <constraint firstItem="Ol8-l4-hTZ" firstAttribute="centerX" secondItem="igR-zH-FbE" secondAttribute="centerX" constant="-2" id="oLp-Ht-3qF"/>
                 <constraint firstItem="d4X-UC-Asf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="uk9-oR-5lU"/>
                 <constraint firstItem="d4X-UC-Asf" firstAttribute="bottom" secondItem="kfn-ZA-scA" secondAttribute="bottom" id="uoV-Ta-wMM"/>

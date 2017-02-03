@@ -18,6 +18,11 @@ class FriendCollectionViewCell: UICollectionViewCell {
         friendImage.layer.cornerRadius = 8
         friendImage.frame.size.height = 80
     }
+    func cellCustomization(cell: FriendCollectionViewCell) {
+        cell.layer.cornerRadius = 8
+        cell.frame.size.height = 130
+        cell.frame.size.width = 130
+    }
     var isChecked: Bool = false {
         didSet {
             if isChecked {
