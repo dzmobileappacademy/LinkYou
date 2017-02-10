@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="og4-xU-Tiq" id="NkH-O3-hft">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2J-w8-3TL">
@@ -194,7 +194,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="cellIdentifier" id="rWq-Pw-kew" customClass="FriendCollectionViewCell" customModule="Sudden" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="27.5" width="124" height="122"/>
+                                        <rect key="frame" x="0.0" y="28" width="124" height="122"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="124" height="122"/>
@@ -272,6 +272,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundBlurEffect" destination="jGo-pj-F2l" id="1cn-AX-JyX"/>
+                        <outlet property="conversationsButtonOutlet" destination="LSl-9H-mNw" id="kuL-xu-2hb"/>
                         <outlet property="matchButtonOutlet" destination="ozE-WD-A1c" id="j6a-hf-pcl"/>
                         <outlet property="userCV" destination="U5s-EM-vPd" id="7a7-8p-SJS"/>
                         <outlet property="userCVTwo" destination="fL2-ka-tgV" id="8Ne-BH-OnC"/>
@@ -297,7 +298,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyM-ev-hlf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ciA-qH-ySv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ciA-qH-ySv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

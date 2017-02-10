@@ -37,7 +37,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     //    MARK: - IBOutlets
     
     @IBOutlet weak var matchButtonOutlet: UIButton!
-//    @IBOutlet weak var matchButtonOutlet: UIButton!
+    //    @IBOutlet weak var matchButtonOutlet: UIButton!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var userCV: UICollectionView!
     @IBOutlet weak var userCVTwo: UICollectionView!
@@ -58,7 +58,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             }
         }
         logingAndGetFriendList()
-
+        
         self.automaticallyAdjustsScrollViewInsets = false
         self.userCV?.delegate = self
         self.userCV?.dataSource = self
@@ -68,7 +68,10 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         NotificationCenter.default.addObserver(self, selector: #selector(presentSelectedUserOne), name: NSNotification.Name(rawValue: "userCVPicked"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentSelectedUserTwo), name: NSNotification.Name(rawValue: "userCVTwoPicked"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(removeMainBlur), name: NSNotification.Name(rawValue: "blursRemoved"), object: nil)
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,12 +81,12 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         afterLoginAnimation()
-
+        
     }
     
     // first appearance animation aftr login
     func afterLoginAnimation() {
-        UIView.animate(withDuration: 1.5) { 
+        UIView.animate(withDuration: 1.5) {
             self.userCV.alpha = 1
             self.userCVTwo.alpha = 1
             self.view.addSubview(self.userCV)
@@ -139,36 +142,49 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             self.view.addSubview(blurEffectView)
             connectAlert.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
             connectAlert.alpha = 0
-            UIView.animate(withDuration: 0.4, animations: { 
+            UIView.animate(withDuration: 0.4, animations: {
                 connectAlert.alpha = 1
                 connectAlert.transform = CGAffineTransform.identity
             })
-            connectAlert.frame = CGRect(x: (UIScreen.main.bounds.width / 2) - ((connectAlert.frame.width) / 2), y: (self.view.frame.height / 2) - ((connectAlert.frame.height) / 2), width: (connectAlert.frame.width), height: (connectAlert.frame.height))
+            connectAlert.frame = CGRect(x: (UIScreen.main.bounds.width / 2) - ((connectAlert.frame.width) / 2), y: (connectAlert.frame.height), width: (connectAlert.frame.width), height: (connectAlert.frame.height))
             connectAlert.layer.cornerRadius = 12
             self.view.addSubview(connectAlert)
             
-
+            
+            
         }
     }
-   
-    // tap conversationbutton, go to "conversationsList,matches, waiting list" table view
-    @IBAction func conversationsButtonTapped(_ sender: UIBarButtonItem) {
-        print("traveling to conversations list ")
+    // MARK: - Keyboad toggling to push view up when texview is active to prevent hiding part of the view
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+                
+            }
+        }
     }
     
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+        
+    }
     // MARK: - Collection View DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.userCV {
-            if SuddenMainVC.malesUsersList.count > 0 {
-                return  SuddenMainVC.malesUsersList.count
+            if SuddenMainVC.topFiltredList.count > 0 {
+                return  SuddenMainVC.topFiltredList.count
             } else {
-                return SuddenMainVC.topFiltredList.count
+                return SuddenMainVC.malesUsersList.count
             }
         } else if collectionView == self.userCVTwo {
-            if SuddenMainVC.femalesUsersList.count > 0 {
-                return SuddenMainVC.femalesUsersList.count
-            } else {
+            if SuddenMainVC.bottomFiltreredList.count > 0 {
                 return SuddenMainVC.bottomFiltreredList.count
+            } else {
+                return SuddenMainVC.femalesUsersList.count
             }
         } else {
             return 0
@@ -183,15 +199,15 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FriendCollectionViewCell
         if collectionView == self.userCV {
-            if SuddenMainVC.malesUsersList.count > 0 {
-                let user = SuddenMainVC.malesUsersList[indexPath.item]
+            if SuddenMainVC.topFiltredList.count > 0 {
+                let user = SuddenMainVC.topFiltredList[indexPath.item]
                 cell.friendName.text = user.firstName
                 cell.cellCustomization(cell: cell)
                 if let profileImageURL = user.profileImageURL {
                     cell.friendImage.loadImageUsingCacheWithUrlString(profileImageURL)
                 }
             } else {
-                let user = SuddenMainVC.topFiltredList[indexPath.item]
+                let user = SuddenMainVC.malesUsersList[indexPath.item]
                 cell.friendName.text = user.firstName
                 cell.cellCustomization(cell: cell)
                 if let profileImageURL = user.profileImageURL {
@@ -201,15 +217,15 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             }
         } else if collectionView == self.userCVTwo {
             
-            if SuddenMainVC.femalesUsersList.count > 0 {
-                let user = SuddenMainVC.femalesUsersList[indexPath.item]
+            if SuddenMainVC.bottomFiltreredList.count > 0 {
+                let user = SuddenMainVC.bottomFiltreredList[indexPath.item]
                 cell.friendName.text = user.firstName
                 cell.cellCustomization(cell: cell)
                 if let profileImageURL = user.profileImageURL {
                     cell.friendImage.loadImageUsingCacheWithUrlString(profileImageURL)
                 }
             } else {
-                let user = SuddenMainVC.bottomFiltreredList[indexPath.item]
+                let user = SuddenMainVC.femalesUsersList[indexPath.item]
                 cell.friendName.text = user.firstName
                 cell.cellCustomization(cell: cell)
                 if let profileImageURL = user.profileImageURL {
@@ -287,11 +303,11 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     
     // MARK: - Core Functions
     
-
+    
     
     // present link button
     func presentLinkButton() {
-       
+        
         if (SuddenMainVC.isUserOneSelected == true && SuddenMainVC.isUserTwoSelected == true) {
             matchButtonOutlet.isHidden = false
             view.bringSubview(toFront: matchButtonOutlet)
@@ -408,7 +424,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 let data = NSData(contentsOf: url as! URL)
                 userOneImageView.image = UIImage(data: data as! Data)
                 userOneImageView.layer.cornerRadius = 4
-
+                
                 filteredUsersList(user, list: SuddenMainVC.femalesUsersList, isBottom: true, completion: { (success) in
                     self.userCVTwo.reloadData()
                 })
@@ -457,8 +473,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         let userTwoImageView: UIImageView = {
             let userTwoImage = UIImageView()
             userTwoImage.layer.cornerRadius = 8
-            userTwoImage.frame = CGRect(x: ((view.center.y / 2) - 40), y: 10, width: 130, height: 130)
-            userTwoImage.contentMode = .scaleAspectFill
+            userTwoImage.frame = CGRect(x: ((view.center.y / 2) - 40), y: 10, width: 120, height: 120)
             return userTwoImage
         }()
         
@@ -489,7 +504,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 let url = NSURL(string: user.profileImageURL!)
                 let data = NSData(contentsOf: url as! URL)
                 userTwoImageView.image = UIImage(data: data as! Data)
-
+                
                 filteredUsersList(user, list: SuddenMainVC.malesUsersList, isBottom: false, completion: { (success) in
                     self.userCV.reloadData()
                 })

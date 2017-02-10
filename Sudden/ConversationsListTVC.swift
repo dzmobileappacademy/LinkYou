@@ -107,6 +107,7 @@ class ConversationsListTVC: UITableViewController {
                 let chatThread = segue.destination as! ChatThreadVC
                 let conversation = conversationArray[indexPath.row]
                 chatThread.conversation = conversation
+                chatThread.queryForMessage(conversation)
                 
                 
             }
