@@ -52,9 +52,10 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         // GET USERS
         UserController.fetchAllUsers { (users) in
             DispatchQueue.main.async {
-                SuddenMainVC.usersList = users!
+                SuddenMainVC.usersList = users!.filter({$0.identifier != UserController.currentUserID})
                 SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male"})
                 SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female"})
+                
             }
         }
         logingAndGetFriendList()
@@ -109,14 +110,14 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         UserController.fetchUserForIdentifier(user.identifier!) { (user) in
             if let user = user {
                 offLimitIdentifiers = user.matchesIDs
-                filtreredArray = list.filter({!offLimitIdentifiers.contains($0.identifier!)})
+                filtreredArray = list.filter({!user.matchesIDs.contains($0.identifier!)})
                 if filtreredArray.count != list.count {
                     if isBottom {
-                        SuddenMainVC.topFiltredList = filtreredArray
+                        SuddenMainVC.bottomFiltreredList = filtreredArray
                         completion(true)
                         print("successfully filtredList")
                     } else {
-                        SuddenMainVC.bottomFiltreredList = filtreredArray
+                        SuddenMainVC.topFiltredList = filtreredArray
                         completion(true)
                         print("successfully filtredlist")
                     }
