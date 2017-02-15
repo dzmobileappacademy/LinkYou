@@ -55,6 +55,7 @@ class UserController {
     
     static func createAndLogin(_ viewController: UIViewController, completion: @escaping (_ success: Bool) -> Void) {
         let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
         loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: viewController) { (result, error) -> Void in
             if error != nil {
                 print("login FAILED \(error)")
@@ -63,7 +64,7 @@ class UserController {
                 print("login is CANCELLED")
                 
                 completion(false)
-            } else {
+            } else if FBSDKAccessToken.current().tokenString != nil {
                 
                 let accessToken = FBSDKAccessToken.current().tokenString
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken!)
@@ -93,6 +94,7 @@ class UserController {
                                             var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"), gender: gender)
                                             newUser.save()
                                             self.currentUserID = uid
+                                            
                                             
                                         }
                                     })

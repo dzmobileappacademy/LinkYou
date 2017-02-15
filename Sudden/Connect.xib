@@ -15,6 +15,32 @@
             <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MbO-3a-j3y">
+                    <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="rgM-g6-3fO">
+                        <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kr0-dN-vaZ">
+                                <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="VqB-ue-mu2">
+                                    <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paris" translatesAutoresizingMaskIntoConstraints="NO" id="aww-Rm-pVG">
+                                            <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYs-DD-Jyq">
                     <rect key="frame" x="129" y="325" width="121" height="24"/>
                     <constraints>
@@ -22,7 +48,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Cancel">
-                        <color key="titleColor" red="0.89831852791878175" green="0.12181673355229784" blue="0.28068607987276084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="cancelButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Mh9-7P-Qfb"/>
@@ -46,15 +72,15 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Connect">
-                        <color key="titleColor" red="0.0" green="0.017656813828499374" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="connectButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ok3-1X-GpL"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type Something..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" keyboardDismissMode="interactive" text="Type Something..." translatesAutoresizingMaskIntoConstraints="NO" id="Ol8-l4-hTZ">
                     <rect key="frame" x="16" y="153" width="343" height="99"/>
-                    <color key="backgroundColor" red="0.96154323544294407" green="1" blue="0.89372777419229243" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="99" id="RY2-K6-17T"/>
                     </constraints>
@@ -92,4 +118,7 @@
             <point key="canvasLocation" x="11.5" y="-363"/>
         </view>
     </objects>
+    <resources>
+        <image name="paris" width="160" height="240"/>
+    </resources>
 </document>

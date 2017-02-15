@@ -30,7 +30,7 @@ class ConversationsTableViewCell: UITableViewCell {
     }
     
     func updateCellWithConversation(_ image: UIImage, name: String, conversationTextMessage: String?) {
-        userImage.layer.cornerRadius = userImage.frame.size.width / 2
+//        userImage.layer.cornerRadius = userImage.frame.size.width / 2
         userImage.layer.masksToBounds = true
         userImage.image = image
         userName.text = name

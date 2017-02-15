@@ -28,11 +28,11 @@ class ConversationController {
     
     // fetch all conversations (conversation list (array)) for that user
     static func fetchAllConversationsForUser(_ userIdentifier: String, completion: @escaping(_ conversation: [Conversation]) -> Void) {
-        FirebaseController.observeDataAtEndPoint("users/\(userIdentifier)/conversations/") { (data) -> Void in
+        FirebaseController.observeDataAtEndPoint("users/\(userIdentifier)/conversations") { (data) -> Void in
             if let conversationIDsDictionary = data as? [String: AnyObject] {
                 var conversationArray = [Conversation]()
                 for conversationID in conversationIDsDictionary {
-                    conversationForIdentifier(conversationID.0, completion: { (conversation) in
+                    conversationForIdentifier(conversationID.key, completion: { (conversation) in
                         if let conversation = conversation {
                             conversationArray.append(conversation)
                             completion(conversationArray)

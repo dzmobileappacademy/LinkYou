@@ -14,18 +14,22 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkAlertDelegate {
+    
     // MARK: - Properties
     static var usersList = [User]()
     static var malesUsersList = [User]()
     static var femalesUsersList = [User]()
     static var topFiltredList = [User]()
     static var bottomFiltreredList = [User]()
+    
     // switch property to see if user is selected or not . default to false because users are not selected yet
     static var isUserOneSelected: Bool =  false
     static var isUserTwoSelected: Bool = false
+    
     // array of selected items in the collectionView. if selected add to the array, if not => remove from the array
     var selectedUsersOneList: [String]?
     var selectedUsersTwoList: [String]?
+    
     static var selectedUserOne: User?
     static var selectedUserTwo: User?
     var blurEffectView: UIVisualEffectView!
@@ -34,10 +38,9 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     fileprivate let itemsPerRow: CGFloat = 3
     fileprivate let sectionInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     let cellID = "cellIdentifier"
-    //    MARK: - IBOutlets
     
+    //    MARK: - IBOutlets
     @IBOutlet weak var matchButtonOutlet: UIButton!
-    //    @IBOutlet weak var matchButtonOutlet: UIButton!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var userCV: UICollectionView!
     @IBOutlet weak var userCVTwo: UICollectionView!
@@ -49,20 +52,15 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         super.viewDidLoad()
         matchButtonOutlet.isHidden = true
         self.title = "Compatible"
+        
         // GET USERS
-        UserController.fetchAllUsers { (users) in
-            DispatchQueue.main.async {
-                SuddenMainVC.usersList = users!.filter({$0.identifier != UserController.currentUserID})
-                SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male"})
-                SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female"})
-                
-            }
-        }
         logingAndGetFriendList()
+        fetchAllUser()
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.userCV?.delegate = self
         self.userCV?.dataSource = self
+        
         // MARK: - NSNotifications
         NotificationCenter.default.addObserver(self, selector: #selector(presentLinkButton), name: NSNotification.Name(rawValue: "allUsersPicked"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideLinkButton), name: NSNotification.Name(rawValue: "usersUnselected"), object: nil)
@@ -71,7 +69,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         NotificationCenter.default.addObserver(self, selector: #selector(removeMainBlur), name: NSNotification.Name(rawValue: "blursRemoved"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-
+        
         
     }
     
@@ -81,7 +79,19 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        afterLoginAnimation()
+        //        afterLoginAnimation()
+        
+    }
+    // fetch all users when view loads
+    func fetchAllUser() {
+        UserController.fetchAllUsers { (users) in
+            DispatchQueue.main.async {
+                SuddenMainVC.usersList = users!
+                SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male"})
+                SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female"})
+                
+            }
+        }
         
     }
     
@@ -113,13 +123,15 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 filtreredArray = list.filter({!user.matchesIDs.contains($0.identifier!)})
                 if filtreredArray.count != list.count {
                     if isBottom {
-                        SuddenMainVC.bottomFiltreredList = filtreredArray
                         completion(true)
                         print("successfully filtredList")
+                        
+                        self.userCVTwo.layer.backgroundColor = UIColor.red.cgColor
                     } else {
-                        SuddenMainVC.topFiltredList = filtreredArray
                         completion(true)
                         print("successfully filtredlist")
+                        self.userCV.layer.backgroundColor = UIColor.yellow.cgColor
+                        
                     }
                 } else {
                     completion(false)
@@ -136,6 +148,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         if let connectAlert = UINib(nibName: "Connect", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? ConnectAlert {
             // making Sudden Button a delegate for Connect Alert
             connectAlert.connectionDelegate = self
+            connectAlert.userOneImage.layer.cornerRadius = 10
             let blurEffect = UIBlurEffect(style: .light)
             blurEffectView = UIVisualEffectView(effect: blurEffect)
             blurEffectView.frame = view.bounds
@@ -148,7 +161,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 connectAlert.transform = CGAffineTransform.identity
             })
             connectAlert.frame = CGRect(x: (UIScreen.main.bounds.width / 2) - ((connectAlert.frame.width) / 2), y: (connectAlert.frame.height), width: (connectAlert.frame.width), height: (connectAlert.frame.height))
-            connectAlert.layer.cornerRadius = 12
             self.view.addSubview(connectAlert)
             
             
@@ -270,6 +282,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 SuddenMainVC.selectedUserOne = user
                 self.selectedUsersOneList?.append(user.identifier!)
                 SuddenMainVC.isUserOneSelected = true
+                
             } else {
                 let theUser = SuddenMainVC.malesUsersList[indexPath.item]
                 SuddenMainVC.selectedUserOne = theUser
@@ -403,6 +416,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         let userOneImageView: UIImageView = {
             let userOneImage = UIImageView()
             userOneImage.frame = CGRect(x: ((view.center.x / 2) + 40), y: ((view.center.y) - 355), width: 120, height: 120)
+            
             return userOneImage
         }()
         

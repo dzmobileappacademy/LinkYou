@@ -77,26 +77,18 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         }
         self.connectionDelegate?.removeBlurEffect(self)
         self.removeFromSuperview()
-        
-        
     }
     
     // MARK: - NIB Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer.cornerRadius = 4.0
         introductionMessageTextView.delegate = self
         introductionMessageTextView.layer.cornerRadius = 8
-        connectButtonOutlet.layer.cornerRadius = 4
-        cancelButtonOutlet.layer.cornerRadius = 4
-        
-        
         
         if let userOne = SuddenMainVC.selectedUserOne {
             ImageLoader.sharedLoader.imageForUrl(urlString: userOne.profileImageURL!, completionHandler: { (image, url) in
                 if let userImage = image {
                     self.userOneImage.image = userImage
-                    
                 }
             })
         }
@@ -105,7 +97,6 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
             ImageLoader.sharedLoader.imageForUrl(urlString: userTwo.profileImageURL!, completionHandler: { (image, url) in
                 if let secondUserImage = image {
                     self.userTwoImage.image = secondUserImage
-                    
                 }
                 
             })
@@ -121,6 +112,9 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
         if textView.text == "" || textView.text == "Type Something..." {
             textView.text = ""
             textView.textColor = .black
+            textView.layer.borderColor = UIColor.red.cgColor
+            textView.layer.borderWidth = 1.0
+//            textView.layer.cornerRadius = 5
         }
     }
     
@@ -129,6 +123,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
             textView.text = "Type Something..."
             
         }
+        
     }
     
     // Mark:- Text View Delegate

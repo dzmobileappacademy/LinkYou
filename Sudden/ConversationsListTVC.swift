@@ -7,29 +7,42 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class ConversationsListTVC: UITableViewController {
-    var conversationArray = [Conversation]()
+    var conversationArray: [Conversation] = []
     let currentUserID = UserController.currentUserID
+    var array: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Conversations"
         self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
-        
+//        FirebaseController.ref.child("Messages").observe(.childAdded, with: { (snapshot) in
+//            if let jsonDictionary = snapshot.value as? [String: AnyObject] {
+//                let text = jsonDictionary["text"] as! String
+//                let sender = jsonDictionary["senderID"] as! String
+//                let conversationID = jsonDictionary["conversationID"] as! String
+//                self.array.insert(Message(senderID: sender, conversationID: conversationID, text: text), at: 0)
+//                self.tableView.reloadData()
+//            }
+//        })
+        updateWithConversations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateWithConversations()
+        super.viewWillAppear(true)
+       
         
     }
-    
     // MARK: - UPDATEWITHCONVERSATION FUNCTION
     func updateWithConversations() {
-        ConversationController.fetchAllConversationsForUser(currentUserID) { (conversations) in
+        conversationArray = [Conversation]()
+        ConversationController.fetchAllConversationsForUser("conversations") { (conversations) in
             self.conversationArray = conversations
             self.tableView.reloadData()
+            
         }
     }
     
@@ -42,7 +55,18 @@ class ConversationsListTVC: UITableViewController {
     
     
     // MARK: - Table view data source
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return array.count
+//    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "conversationCellIdentifier", for: indexPath)
+//        let message = array[indexPath.row]
+//        cell.textLabel?.text = message.text
+//        return cell
+//    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if conversationArray.count > 0 {
             return  conversationArray.count
@@ -75,6 +99,10 @@ class ConversationsListTVC: UITableViewController {
         }
         return cell
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = .red
+    }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
