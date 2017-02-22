@@ -53,62 +53,129 @@ class UserController {
     
     // Create User and Login
     
-    static func createAndLogin(_ viewController: UIViewController, completion: @escaping (_ success: Bool) -> Void) {
+    //    static func createAndLogin(_ viewController: UIViewController, completion: @escaping (_ success: Bool) -> Void) {
+    //        let loginManager = FBSDKLoginManager()
+    //        loginManager.logOut()
+    //        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: viewController) { (result, error) -> Void in
+    //            if error != nil {
+    //                print("login FAILED \(error)")
+    //                completion(false)
+    //            } else if (result?.isCancelled)!{
+    //                print("login is CANCELLED")
+    //
+    //                completion(false)
+    //            } else if FBSDKAccessToken.current().tokenString != nil {
+    //
+    //                let accessToken = FBSDKAccessToken.current().tokenString
+    //                let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken!)
+    //                FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+    //                    if error != nil {
+    //                        print("SIGN IN WITH FIREBASE FAILED")
+    //                        completion(false)
+    //                    } else {
+    //                        print("YAY LOGIN SUCCESSFULL!!!!")
+    //                        if let mainUser = FIRAuth.auth()?.currentUser?.providerData{
+    //                            for profile in mainUser {
+    //                                let providerID = profile.providerID
+    //                                let uid = profile.uid // provider-specific UID
+    //                                let name = profile.displayName
+    //                                let email = profile.email
+    //                                let photoUrl = profile.photoURL
+    //                                if (FBSDKAccessToken.current() != nil) {
+    //                                    let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, gender, first_name, last_name, middle_name, picture"])
+    //
+    //                                    facebookRequest?.start(completionHandler: { (connection, result, error) in
+    //
+    //                                        if error == nil {
+    //                                            print(result as Any)
+    //                                            let data = result as! NSDictionary
+    //                                            let gender = data.object(forKey: "gender") as! String
+    //
+    //                                            var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"), gender: gender)
+    //                                            newUser.save()
+    //                                            self.currentUserID = uid
+    //
+    //
+    //                                        }
+    //                                    })
+    //                                }
+    //                                completion(true)
+    //
+    //                            }
+    //
+    //                        }
+    //                    }
+    //                })
+    //
+    //            }
+    //
+    //        }
+    //
+    //    }
+    
+    static func createAndLogin(_ viewController: UIViewController, completion: @escaping(_ success: Bool) -> Void) {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: viewController) { (result, error) -> Void in
+        
+        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: viewController) { (result, error) in
             if error != nil {
-                print("login FAILED \(error)")
+                print("login failed")
                 completion(false)
-            } else if (result?.isCancelled)!{
-                print("login is CANCELLED")
-                
+            } else if (result?.isCancelled)! {
+                print("login is canceled")
                 completion(false)
-            } else if FBSDKAccessToken.current().tokenString != nil {
                 
+            } else {
                 let accessToken = FBSDKAccessToken.current().tokenString
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken!)
                 FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
                     if error != nil {
-                        print("SIGN IN WITH FIREBASE FAILED")
+                        print("sign in with firebase failed")
                         completion(false)
                     } else {
-                        print("YAY LOGIN SUCCESSFULL!!!!")
-                        if let mainUser = FIRAuth.auth()?.currentUser?.providerData{
-                            for profile in mainUser {
-                                let providerID = profile.providerID
-                                let uid = profile.uid // provider-specific UID
+                        print("login successfull")
+                        if let user = FIRAuth.auth()?.currentUser?.providerData {
+                            for profile in user {
+//                                let providerID = profile.providerID
+                                let uid = profile.uid
                                 let name = profile.displayName
-                                let email = profile.email
-                                let photoUrl = profile.photoURL
-                                if (FBSDKAccessToken.current() != nil) {
-                                    let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, gender, first_name, last_name, middle_name, picture"])
-                                    
+                                let photoURL = profile.photoURL
+                                if(FBSDKAccessToken.current() != nil) {
+                                    let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, gender, first_name, last_name, middle_name, picture "])
                                     facebookRequest?.start(completionHandler: { (connection, result, error) in
-                                        
                                         if error == nil {
-                                            print(result as Any)
                                             let data = result as! NSDictionary
                                             let gender = data.object(forKey: "gender") as! String
-                                            
-                                            var newUser = User(firstName: name!, profileImageURL: ("\(photoUrl!)"), gender: gender)
+                                            var newUser = User(firstName: name!, profileImageURL: ("\(photoURL!)"), gender: gender)
+                                            for user in UserController.usersArray {
+                                                ImageLoader.sharedLoader.imageForUrl(urlString: user.profileImageURL!  , completionHandler: { (image, url) in
+                                                    if let userImage = image {
+                                                        user.profileImage = userImage
+                                                        print("\(user.profileImageURL)")
+                                                        print(user.firstName)
+                                                    }
+                                                })
+                                            }
+                                            DispatchQueue.main.async {
+//                                                self.userCV.reloadData()
+//                                                self.userCVTwo.reloadData()
+                                            }
+
                                             newUser.save()
-                                            self.currentUserID = uid
+                                            UserController.currentUserID = uid
+                                            
+                                            
                                             
                                             
                                         }
                                     })
                                 }
                                 completion(true)
-                                
                             }
-                            
                         }
                     }
                 })
-                
             }
-            
         }
         
     }

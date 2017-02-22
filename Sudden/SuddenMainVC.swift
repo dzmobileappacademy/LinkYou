@@ -12,7 +12,7 @@ import Firebase
 import FirebaseDatabase
 import FBSDKCoreKit
 import FBSDKLoginKit
-
+import FirebaseAuth
 class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkAlertDelegate {
     
     // MARK: - Properties
@@ -54,7 +54,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         self.title = "Compatible"
         
         // GET USERS
-        logingAndGetFriendList()
+//        logingAndGetFriendList()
         fetchAllUser()
         
         self.automaticallyAdjustsScrollViewInsets = false
@@ -86,9 +86,11 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
     func fetchAllUser() {
         UserController.fetchAllUsers { (users) in
             DispatchQueue.main.async {
-                SuddenMainVC.usersList = users!
-                SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male"})
+                SuddenMainVC.usersList = users?.filter
+                    SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male"})
                 SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female"})
+                self.userCV.reloadData()
+                self.userCVTwo.reloadData()
                 
             }
         }
@@ -127,15 +129,13 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                         SuddenMainVC.bottomFiltreredList = filtreredArray
                         print("successfully filtredList")
                         
-                        self.userCVTwo.layer.backgroundColor = UIColor.red.cgColor
                     } else {
                         completion(true)
                         SuddenMainVC.topFiltredList = filtreredArray
                         print("successfully filtredlist")
-                        self.userCV.layer.backgroundColor = UIColor.yellow.cgColor
                         
                     }
-                } else { 
+                } else {
                     completion(false)
                     print("failed to set filtred list ")
                 }
@@ -405,14 +405,14 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         
         // customize view when blur take effect
         // 1- CONTAINER VIEW
-//        let containerView: UIView = {
-//            let containerV = UIView()
-//            containerV.frame = CGRect(x: ((view.center.x / 2) - 85), y: ((view.center.y / 2) - 182), width: ((userCV.frame.width) - 20), height: userCV.frame.height)
-//            
-//            containerV.backgroundColor = .yellow
-//            containerV.layer.cornerRadius = 8
-//            return containerV
-//        }()
+        //        let containerView: UIView = {
+        //            let containerV = UIView()
+        //            containerV.frame = CGRect(x: ((view.center.x / 2) - 85), y: ((view.center.y / 2) - 182), width: ((userCV.frame.width) - 20), height: userCV.frame.height)
+        //
+        //            containerV.backgroundColor = .yellow
+        //            containerV.layer.cornerRadius = 8
+        //            return containerV
+        //        }()
         
         // 2- IMAGE VIEW OF THE USER 1
         let userOneImageView: UIImageView = {
@@ -476,15 +476,15 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         self.view.addSubview(blurEffectViewTwo)
         // customize view when blur take effect
         // 1- CONTAINER VIEW 2
-//        let containerViewTwo: UIView = {
-//            let containerV = UIView()
-//            containerV.frame = CGRect(x: (userCVTwo.center.x), y: view.center.y , width: view.frame.width, height: userCVTwo.frame.height)
-//            containerV.clipsToBounds = true
-//            
-//            containerV.backgroundColor = .yellow
-//            containerV.layer.cornerRadius = 8
-//            return containerV
-//        }()
+        //        let containerViewTwo: UIView = {
+        //            let containerV = UIView()
+        //            containerV.frame = CGRect(x: (userCVTwo.center.x), y: view.center.y , width: view.frame.width, height: userCVTwo.frame.height)
+        //            containerV.clipsToBounds = true
+        //
+        //            containerV.backgroundColor = .yellow
+        //            containerV.layer.cornerRadius = 8
+        //            return containerV
+        //        }()
         
         // 2- IMAGE VIEW OF THE USER 2
         let userTwoImageView: UIImageView = {

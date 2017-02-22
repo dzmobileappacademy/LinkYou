@@ -28,12 +28,14 @@ class ConversationsListTVC: UITableViewController {
 //                self.tableView.reloadData()
 //            }
 //        })
-        updateWithConversations()
+//        updateWithConversations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       
+    
+        updateWithConversations()
+
         
     }
     // MARK: - UPDATEWITHCONVERSATION FUNCTION
