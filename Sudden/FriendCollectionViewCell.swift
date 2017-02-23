@@ -14,25 +14,23 @@ class FriendCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var friendName: UILabel!
     @IBOutlet weak var friendImage: UIImageView!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutIfNeeded()
+        friendImage.layer.cornerRadius = friendImage.frame.height / 2
+
+    }
+    
     func imageRadius() {
-        friendImage.layer.cornerRadius = 8
-        friendImage.frame.size.height = 80
+//        friendImage.layer.cornerRadius = friendName.frame.height / 2
+        friendImage.clipsToBounds = true
+        friendImage.layer.masksToBounds = true
+        
     }
     func cellCustomization(cell: FriendCollectionViewCell) {
-        cell.layer.cornerRadius = 8
-        cell.frame.size.height = 130
-        cell.frame.size.width = 130
+//        cell.layer.cornerRadius = cell.lay
+//        cell.frame.size.height = 170
+//        cell.frame.size.width = 150
     }
-    var isChecked: Bool = false {
-        didSet {
-            if isChecked {
-                friendImage.layer.borderColor = UIColor.red.cgColor
-                print("cell selected")
-            }
-            
-        }
-    }
-    
-    
 }
 

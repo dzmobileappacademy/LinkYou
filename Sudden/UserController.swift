@@ -115,6 +115,7 @@ class UserController {
     
     static func createAndLogin(_ viewController: UIViewController, completion: @escaping(_ success: Bool) -> Void) {
         let loginManager = FBSDKLoginManager()
+        loginManager.loginBehavior = .systemAccount
         loginManager.logOut()
         
         loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: viewController) { (result, error) in
@@ -141,7 +142,7 @@ class UserController {
                                 let name = profile.displayName
                                 let photoURL = profile.photoURL
                                 if(FBSDKAccessToken.current() != nil) {
-                                    let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, gender, first_name, last_name, middle_name, picture "])
+                                    let facebookRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, gender, first_name, last_name, middle_name, picture.type(normal) "])
                                     facebookRequest?.start(completionHandler: { (connection, result, error) in
                                         if error == nil {
                                             let data = result as! NSDictionary
