@@ -40,16 +40,16 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
     @IBAction func connectButtonTapped(_ sender: UIButton) {
         if let userOne = SuddenMainVC.selectedUserOne,
             let userTwo = SuddenMainVC.selectedUserTwo {
-            let creatorID = UserController.currentUserID
-            ConversationController.createConversation(userOne.identifier!, userTwoID: userTwo.identifier!, conversationCreatorID: creatorID, completion: { (success, conversation) in
+            let creatorID = UserController.sharedInstance.currentUser.identifier
+            ConversationController.createConversation(userOne.identifier!, userTwoID: userTwo.identifier!, conversationCreatorID: creatorID!, completion: { (success, conversation) in
                 if self.introductionMessageTextView.text == "Type Something..." || self.introductionMessageTextView.text == "" {
                     if let conversationID = conversation?.identifier {
                         var creatorName = ""
-                        UserController.fetchUserForIdentifier(UserController.currentUserID, completion: { (user) in
+                        UserController.fetchUserForIdentifier(UserController.sharedInstance.currentUser.identifier!, completion: { (user) in
                             if user != nil {
                                 creatorName = (user?.firstName)!
                                 let text = "\(creatorName) Wants  To Introduce you... "
-                                MessageController.createMessage(conversationID, userID: creatorID, text: text, completion: { (message) in
+                                MessageController.createMessage(conversationID, userID: creatorID!, text: text, completion: { (message) in
                                     print("message created successfully from the connection Alert CONNECT BUTTON!!!")
                                     // post notification to the observer to get it and remove the blur views
                                     let removeBlurs = Notification(name: Notification.Name(rawValue: "blursRemoved"), object: nil, userInfo: nil)
@@ -63,7 +63,7 @@ class ConnectAlert: UIView, UITextViewDelegate, UITextFieldDelegate {
                     }
                 } else {
                     if let text = self.introductionMessageTextView.text, let conversationID = conversation?.identifier {
-                        MessageController.createMessage(conversationID, userID: creatorID, text: text, completion: { (message) in
+                        MessageController.createMessage(conversationID, userID: creatorID!, text: text, completion: { (message) in
                             let removeBlurs = Notification(name: Notification.Name(rawValue: "blursRemoved"), object: nil, userInfo: nil)
                             NotificationCenter.default.post(removeBlurs)
                             print("message created successfully from the connection Alert CONNECT BUTTON!!!")

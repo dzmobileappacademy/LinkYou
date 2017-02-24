@@ -140,8 +140,8 @@ class ConversationController {
     
     // add user to blockedusers list
     static func addUserToBlockedUsersList(_ conversation: Conversation) {
-        let currentUserID = UserController.currentUserID
-        oppositeUser(conversation: conversation, userID: currentUserID, completion: { (user) in
+        let currentUserID = UserController.sharedInstance.currentUser.identifier
+        oppositeUser(conversation: conversation, userID: currentUserID!, completion: { (user) in
             
             if let userID = user?.identifier {
                 FirebaseController.ref.child("users/\(currentUserID)/blockedUsers").updateChildValues([userID: true])

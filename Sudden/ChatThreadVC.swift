@@ -12,7 +12,7 @@ class ChatThreadVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     var conversation: Conversation?
     var messagesArray: [Message] = []
-    var currentUserID = UserController.currentUserID
+    var currentUserID = UserController.sharedInstance.currentUser.identifier
 
     @IBOutlet weak var oppositeUserImage: UIImageView!
     @IBOutlet weak var cameraButtonOutlet: UIButton!
@@ -31,7 +31,7 @@ class ChatThreadVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     // send Click ==> save  message(text, conversationID, sendID) to firebase
     @IBAction func sendButtonTapped(_ sender: UIButton) {
         if let text = typeMessageTextField.text, let conversationID = self.conversation?.identifier {
-            MessageController.createMessage(conversationID, userID: currentUserID, text: text, completion: { (message) in
+            MessageController.createMessage(conversationID, userID: currentUserID!, text: text, completion: { (message) in
                 self.typeMessageTextField.resignFirstResponder()
                 self.typeMessageTextField.text = ""
                 

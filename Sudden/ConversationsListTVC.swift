@@ -12,7 +12,7 @@ import FirebaseDatabase
 
 class ConversationsListTVC: UITableViewController {
     var conversationArray: [Conversation] = []
-    let currentUserID = UserController.currentUserID
+    let currentUserID = UserController.sharedInstance.currentUser.identifier
     var array: [Message] = []
     
     override func viewDidLoad() {
@@ -86,7 +86,7 @@ class ConversationsListTVC: UITableViewController {
         MessageController.queryForMessages(conversation) {(messages) in
             messagesArray = messages?.sorted(by: {$0.identifier! < $1.identifier!})
         }
-        ConversationController.oppositeUser(conversation: conversation, userID: currentUserID) { (user) in
+        ConversationController.oppositeUser(conversation: conversation, userID: currentUserID!) { (user) in
             ImageLoader.sharedLoader.imageForUrl(urlString: (user?.profileImageURL)!, completionHandler: { (image, url) in
                 if let image = image {
                     if (messagesArray?.count)! > 1 {

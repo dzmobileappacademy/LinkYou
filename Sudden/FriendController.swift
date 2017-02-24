@@ -28,7 +28,7 @@ class FriendController {
 //    }
     // get opposite users list
     static func oppositeUserGenderList(_ users: [User]) -> [User] {
-        UserController.fetchUserForIdentifier(UserController.currentUserID) { (user) in
+        UserController.fetchUserForIdentifier(UserController.sharedInstance.currentUser.identifier!) { (user) in
             if let user = user {
                 if user.gender == "male" {
                     oppositeGenderList += users.filter({$0.gender == "female"})
@@ -42,7 +42,7 @@ class FriendController {
     
     // get same gender users list
     static func sameGenderList(_ users: [User]) -> [User] {
-        UserController.fetchUserForIdentifier(UserController.currentUserID) { (user) in
+        UserController.fetchUserForIdentifier(UserController.sharedInstance.currentUser.identifier!) { (user) in
             if let user = user {
                 if user.gender == "male" {
                     sameGenderUserList += users.filter({$0.gender == "male"})

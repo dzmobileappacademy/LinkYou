@@ -55,7 +55,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         self.title = "Compatible"
         
         // GET USERS
-        //        logingAndGetFriendList()
         fetchAllUser()
         
         self.automaticallyAdjustsScrollViewInsets = false
@@ -88,8 +87,9 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         UserController.fetchAllUsers { (users) in
             DispatchQueue.main.async {
                 SuddenMainVC.usersList = users!
-                SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male" && $0.identifier != UserController.currentUserID})
-                SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female" && $0.identifier != UserController.currentUserID})
+                
+                SuddenMainVC.malesUsersList = SuddenMainVC.usersList.filter({$0.gender == "male" })
+                SuddenMainVC.femalesUsersList = SuddenMainVC.usersList.filter({$0.gender == "female" })
                 self.userCV.reloadData()
                 self.userCVTwo.reloadData()
                 
@@ -218,7 +218,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             if SuddenMainVC.topFiltredList.count > 0 {
                 let user = SuddenMainVC.topFiltredList[indexPath.item]
                 cell.friendName.text = user.firstName
-//                cell.cellCustomization(cell: cell)
                 cell.imageRadius()
                 if let profileImageURL = user.profileImageURL {
                     cell.friendImage.loadImageUsingCacheWithUrlString(profileImageURL)
@@ -226,7 +225,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             } else {
                 let user = SuddenMainVC.malesUsersList[indexPath.item]
                 cell.friendName.text = user.firstName
-//                cell.cellCustomization(cell: cell)
                 cell.imageRadius()
                 if let profileImageURL = user.profileImageURL {
                     cell.friendImage.loadImageUsingCacheWithUrlString(profileImageURL)
@@ -238,7 +236,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             if SuddenMainVC.bottomFiltreredList.count > 0 {
                 let user = SuddenMainVC.bottomFiltreredList[indexPath.item]
                 cell.friendName.text = user.firstName
-//                cell.cellCustomization(cell: cell)
                 cell.imageRadius()
                 if let profileImageURL = user.profileImageURL {
                     cell.friendImage.loadImageUsingCacheWithUrlString(profileImageURL)
@@ -246,7 +243,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
             } else {
                 let user = SuddenMainVC.femalesUsersList[indexPath.item]
                 cell.friendName.text = user.firstName
-//                cell.cellCustomization(cell: cell)
                 cell.imageRadius()
                 if let profileImageURL = user.profileImageURL {
                     cell.friendImage.loadImageUsingCacheWithUrlString(profileImageURL)
@@ -257,11 +253,6 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         }
         return cell
     }
-//    func cellCustomization(cell: FriendCollectionViewCell) {
-//        cell.layer.cornerRadius = 8
-//        cell.frame.size.height = 130
-//        cell.frame.size.width = 130
-//    }
     
     // MARK:-  UICollectionViewFlowLayoutDelegate
     
@@ -422,8 +413,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
         // 2- IMAGE VIEW OF THE USER 1
         let userOneImageView: UIImageView = {
             let userOneImage = UIImageView()
-            userOneImage.frame = CGRect(x: ((view.center.x / 2) + 40), y: ((view.center.y) - 355), width: 120, height: 120)
-            
+            userOneImage.frame = CGRect(x: ((view.center.x / 2) + 40), y: ((view.center.y) - 355), width: 120, height: 120)            
             return userOneImage
         }()
         
@@ -445,7 +435,7 @@ class SuddenMainVC:  UIViewController, UICollectionViewDelegate, UICollectionVie
                 let url = NSURL(string: user.profileImageURL!)
                 let data = NSData(contentsOf: url as! URL)
                 userOneImageView.image = UIImage(data: data as! Data)
-//                userOneImageView.layer.cornerRadius = 32
+                
                 
                 filteredUsersList(user, list: SuddenMainVC.femalesUsersList, isBottom: true, completion: { (success) in
                     self.userCVTwo.reloadData()

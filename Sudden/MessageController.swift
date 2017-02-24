@@ -34,7 +34,7 @@ class MessageController {
     // query for message
     static func queryForMessages(_ conversation: Conversation, completion: @escaping(_ messages: [Message]?) -> Void) {
         if let conversationID = conversation.identifier {
-            FirebaseController.ref.child("Messages").queryEqual(toValue: conversationID).observe(.value, with: { (snapshot) in
+            FirebaseController.ref.child("Messages").queryOrdered(byChild: "conversationID").queryEqual(toValue: conversationID).observe(.value, with: { (snapshot) in
                 if let messagesDictionaries = snapshot.value as? [String: AnyObject] {
                     let messages = messagesDictionaries.flatMap({Message(json: $0.1 as! [String : AnyObject] , identifier: $0.0)})
                     conversation.messages = messages

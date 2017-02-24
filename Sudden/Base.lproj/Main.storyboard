@@ -65,7 +65,7 @@
                             </visualEffectView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="U5s-EM-vPd">
                                 <rect key="frame" x="0.0" y="121" width="375" height="177"/>
-                                <color key="backgroundColor" red="0.76862745098039209" green="0.85490196078431369" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="177" id="fsZ-0l-MbM"/>
                                 </constraints>
@@ -99,7 +99,7 @@
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
@@ -127,7 +127,7 @@
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fL2-ka-tgV">
                                 <rect key="frame" x="0.0" y="369" width="375" height="177"/>
-                                <color key="backgroundColor" red="0.86007533649324674" green="0.83821608230145328" blue="0.86690989847715738" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="177" id="6KU-PT-QTS"/>
                                 </constraints>
@@ -161,7 +161,7 @@
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
-                                                    <color key="highlightedColor" red="0.91168691702338323" green="0.98833339475829718" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
@@ -295,7 +295,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyM-ev-hlf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ciA-qH-ySv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ciA-qH-ySv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

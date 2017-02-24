@@ -11,10 +11,12 @@ class ReportController {
     
     // create the report endpoint in firebase
     static func createReport(_ conversation: Conversation) {
-        let currentUserID = UserController.currentUserID
-        ConversationController.oppositeUser(conversation: conversation, userID: currentUserID) { (user) in
+        let currentUserID = UserController.sharedInstance.currentUser.identifier
+        ConversationController.oppositeUser(conversation: conversation, userID: currentUserID!) { (user) in
             if let userID = user?.identifier {
-                FirebaseController.ref.child("reports").childByAutoId().setValue([currentUserID: userID])
+                var report = Report(userID: userID, blockerID: currentUserID!)
+                report.save()
+                print("\(userID) blocked by \(currentUserID)")
             }
             
             
